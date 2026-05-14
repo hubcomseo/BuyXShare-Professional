@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
+  
+  /* Backgrounds */
+  --color-bg-base: #0B1220;
+  --color-bg-soft: #111827;
+  
+  /* Surfaces */
+  --color-surface: #151F2E;
+  --color-surface-elevated: #1E293B;
+  --color-surface-soft: #223047;
+  
+  /* Borders */
+  --color-border-subtle: #2A3A50;
+  --color-border-strong: #334155;
+  
+  /* Typography */
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #CBD5E1;
+  --color-text-muted: #94A3B8;
+  --color-text-disabled: #64748B;
+  
+  /* Brand */
+  --color-primary: #6366F1;
+  --color-primary-light: #818CF8;
+  --color-primary-soft: #1E1B4B;
+  
+  /* Accent/Action */
+  --color-accent: #00D991;
+  --color-accent-soft: #064E3B;
+  
+  /* Feedback */
+  --color-info: #60A5FA;
+  --color-warning: #FACC15;
+  --color-error: #F87171;
+  --color-success: #34D399;
+
+  /* Badge Soft Backgrounds */
+  --color-success-soft: rgba(52, 211, 153, 0.14);
+  --color-warning-soft: rgba(250, 204, 21, 0.14);
+  --color-error-soft: rgba(248, 113, 113, 0.14);
+  --color-info-soft: rgba(96, 165, 250, 0.14);
+  --color-customer-soft: rgba(129, 140, 248, 0.14);
+  --color-partner-soft: rgba(0, 217, 145, 0.14);
+  --color-neutral-soft: rgba(148, 163, 184, 0.12);
+  --color-reward-soft: rgba(0, 217, 145, 0.14);
+  --color-commission-soft: rgba(0, 217, 145, 0.14);
+
+  /* Customer Role Tokens (Indigo) */
+  --color-customer-primary: #818CF8;
+  --color-customer-strong: #6366F1;
+  --color-customer-soft: #1E1B4B;
+  --color-customer-subtle: rgba(129, 140, 248, 0.14);
+  --color-customer-badge-text: #A5B4FC;
+
+  /* Partner Role Tokens (Mint) */
+  --color-partner-primary: #00D991;
+  --color-partner-strong: #10B981;
+  --color-partner-soft: #064E3B;
+  --color-partner-subtle: rgba(0, 217, 145, 0.14);
+  --color-partner-badge-text: #6EE7B7;
+
+  /* Shared/Neutral Tokens */
+  --color-neutral-surface: #151F2E;
+  --color-neutral-elevated: #1E293B;
+  --color-neutral-border: #2A3A50;
+  --color-neutral-text: #CBD5E1;
+
+  /* Domain Tokens */
+  --color-reward-primary: #00D991;
+  --color-reward-soft: #064E3B;
+  --color-reward-highlight: #6EE7B7;
+
+  --color-payment-paid: #34D399;
+  --color-payment-pending: #FACC15;
+  --color-payment-failed: #F87171;
+
+  --color-order-processing: #818CF8;
+  --color-order-shipped: #60A5FA;
+  --color-order-completed: #34D399;
+  --color-order-cancelled: #F87171;
+
+  --color-commission-pending: #FACC15;
+  --color-commission-confirmed: #00D991;
+  --color-commission-paid: #34D399;
+  --color-commission-cancelled: #94A3B8;
+
+  /* Legacy mappings (for minimal breakage during migration) */
+  --color-dark: #F8FAFC;
+  --color-medium: #CBD5E1;
+  --color-muted-legacy: #94A3B8;
+  --color-border-base: #2A3A50;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+
+  @keyframes scan {
+    0%, 100% { top: 0; }
+    50% { top: 100%; }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+}
+
+@utility animate-scan {
+  animation: scan 2s linear infinite;
+}
+@utility animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased bg-bg-base text-text-primary;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+/* Custom scrollbar for mobile feel */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.glass {
+  @apply bg-surface/80 backdrop-blur-md border border-border-subtle;
+}
+
+.card-hover {
+  @apply transition-all duration-300 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1;
+}

@@ -1,0 +1,21 @@
+src/components/order/OrderRewardNotice.tsx:           <Button variant="soft-primary" size="sm" className="rounded-xl mt-2" onClick={() => navigate('/app/rewards')}>Xem vé thưởng</Button>
+src/features/rewards/RewardTrackingView.tsx:            onClick={() => window.history.length > 1 ? navigate(-1) : navigate('/app/rewards')} 
+src/features/rewards/CustomerRewardsView.tsx:               else navigate('/app/rewards/track');
+src/features/rewards/TicketDetailView.tsx:          onClick={() => navigate('/app/rewards')}
+src/features/products/ProductDetailView.tsx:    navigate('/app/home');
+src/features/products/HomeView.tsx:              onClick={() => navigate('/app/search')}
+src/features/products/HomeView.tsx:      <Section title="Curated" description="Trending This Week" action={{ label: "View all", onClick: () => navigate('/app/partner/marketplace') }}>
+src/features/affiliate/PartnerDashboardView.tsx:              onClick={() => navigate('/app/partner/stats')}
+src/features/affiliate/PartnerDashboardView.tsx:                onClick={() => navigate('/app/partner/stats')}
+src/features/affiliate/PartnerDashboardView.tsx:              onClick={() => navigate('/app/partner/campaigns')}
+src/features/affiliate/PartnerDashboardView.tsx:              onClick={() => navigate('/app/partner/marketplace')}
+src/features/affiliate/PartnerDashboardView.tsx:               onClick={() => navigate('/app/partner/commissions')}
+src/features/affiliate/PartnerDashboardView.tsx:                  onClick={() => navigate('/app/partner/commissions')}
+src/features/checkout/SuccessView.tsx:    navigate('/app/home');
+src/features/checkout/SuccessView.tsx:      navigate('/p/track-order');
+src/features/checkout/SuccessView.tsx:      navigate('/app/rewards/track');
+src/app/routes/Router.tsx:  if (user?.role === 'customer') return <Navigate to="/app/home" replace />;
+src/app/routes/Router.tsx:  if (user?.role === 'partner') return <Navigate to="/app/partner/dashboard" replace />;
+src/app/routes/Router.tsx:  return <Navigate to="/app/home" replace />;
+src/app/routes/Router.tsx:        <Route path="track-order" element={<Navigate to="/p/track" replace />} />
+src/app/routes/Router.tsx:      <Route path="*" element={<Navigate to="/" replace />} />

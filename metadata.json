@@ -1,0 +1,12 @@
+{
+  "name": "BuyXShare Professional",
+  "description": "Nền tảng Ecommerce Professional với hệ thống Dashboards đa vai trò (Partner, Supplier, Operator), đối soát tự động, hoa hồng lũy tiến và vé thưởng DexSpace Lottery.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "Multi-role Dashboards",
+    "Affiliate Tracking",
+    "QR Payment Simulation",
+    "DexSpace Reward System",
+    "Order Reconciliation"
+  ]
+}
