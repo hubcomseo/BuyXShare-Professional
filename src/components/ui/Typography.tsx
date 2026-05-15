@@ -75,9 +75,9 @@ const variantStyles: Record<TypographyVariant, string> = {
   'metric': 'font-heading text-[23px] leading-[29px] font-black italic tracking-tighter',
   'metric-sm': 'font-heading text-[19px] leading-[25px] font-black italic tracking-tighter',
 
-  'price': 'font-heading text-[18px] leading-[22px] font-black italic tracking-tighter',
-  'price-sm': 'font-heading text-[15px] leading-[20px] font-black italic tracking-tighter',
-  'price-xs': 'font-heading text-[13px] leading-[18px] font-black italic tracking-tighter',
+  'price': 'font-heading text-[19px] leading-[22px] font-black italic tracking-tighter',
+  'price-sm': 'font-heading text-[17px] leading-[20px] font-black italic tracking-tighter',
+  'price-xs': 'font-heading text-[15px] leading-[18px] font-black italic tracking-tighter',
 
   'code': 'font-heading text-[13px] leading-[18px]',
 

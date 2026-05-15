@@ -46,18 +46,13 @@ export const PartnerProductListItem: React.FC<PartnerProductListItemProps> = ({
           src={product.images?.[0]} 
           alt={product.name} 
         />
-        <div className="absolute top-1 left-1">
-          <Badge variant="commission" size="xxs" className="font-black h-3.5 px-1 shadow-sm bg-partner-primary text-white border-none">
-            {product.commissionRate}%
-          </Badge>
-        </div>
       </Link>
       
       {/* Content center */}
       <div className="flex-1 flex flex-col justify-center min-w-0 py-1">
         {/* 1. Brand */}
         {product.brand && (
-          <Text className="text-[10px] text-text-disabled uppercase font-bold tracking-wider mb-0.5">
+          <Text className="text-[9px] text-text-disabled uppercase font-medium tracking-tight mb-0.5 opacity-70">
             {product.brand}
           </Text>
         )}
@@ -70,9 +65,10 @@ export const PartnerProductListItem: React.FC<PartnerProductListItemProps> = ({
         <ProductPrice 
           price={product.price} 
           salePrice={product.salePrice}
-          commission={commissionPrice}
+          commission={product.commissionRate}
           variant="partner"
           size="sm"
+          layout="horizontal"
         />
       </div>
       

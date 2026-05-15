@@ -219,7 +219,7 @@ export const SystemDesignView: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <MetricCard 
                   label="Doanh thu" 
-                  value="12.500.000 đ" 
+                  value="12.500.000 ₫" 
                   icon={ShoppingBag} 
                   trend="+12% từ tháng trước"
                   trendType="positive"

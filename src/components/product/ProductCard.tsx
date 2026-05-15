@@ -7,7 +7,7 @@ import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductBadges } from './ProductBadges';
 import { Badge, Button } from '../ui';
-import { ShoppingBag, Ticket } from 'lucide-react';
+import { ShoppingBag, Ticket, Star } from 'lucide-react';
 import { useTranslation } from '../../lib/i18n';
 
 interface ProductCardProps {
@@ -47,12 +47,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       
       {/* Product Info */}
       <div className="p-3">
-        {/* 1. Brand */}
-        {product.brand && (
-          <Text className="text-[10px] text-text-disabled uppercase font-bold tracking-wider mb-1">
-            {product.brand}
-          </Text>
-        )}
+        {/* 1. Brand & Rating */}
+        <div className="flex items-center justify-between mb-1">
+          {product.brand && (
+            <Text className="text-[7px] text-text-muted font-medium tracking-tight leading-none">
+              {product.brand}
+            </Text>
+          )}
+          <div className="flex items-center gap-0.5">
+            <Text className="text-[9px] text-text-muted font-bold leading-none">4.5</Text>
+            <Star size={12} strokeWidth={2} className="text-yellow-500" />
+          </div>
+        </div>
         
         {/* 2. Product Name */}
         <Text 

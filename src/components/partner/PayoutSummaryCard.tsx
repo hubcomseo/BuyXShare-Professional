@@ -24,7 +24,7 @@ export const PayoutSummaryCard = ({ balance, minThreshold, onRequestPayout, isRe
              <CaptionText className="text-white/70" weight={600}>Số dư khả dụng</CaptionText>
           </div>
           <Heading variant="h1" className="text-white">
-             {formatMoney(balance).split('đ')[0]}
+             {formatMoney(balance).split('₫')[0]}
              <span className="text-lg text-partner-primary ml-1">VND</span>
           </Heading>
        </div>

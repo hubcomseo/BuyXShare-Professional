@@ -9,6 +9,7 @@ interface ProductPriceProps {
   commission?: number;
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   variant?: 'default' | 'partner' | 'customer';
+  layout?: 'vertical' | 'horizontal';
   className?: string;
   color?: TypographyColor;
 }
@@ -19,6 +20,7 @@ export const ProductPrice: React.FC<ProductPriceProps> = ({
   commission,
   size = 'md',
   variant = 'default',
+  layout = 'vertical',
   className,
   color,
 }) => {
@@ -34,6 +36,35 @@ export const ProductPrice: React.FC<ProductPriceProps> = ({
   };
 
   const currentPriceColor = color || (hasSale ? 'sale' : 'dark');
+
+  if (variant === 'partner') {
+    return (
+      <div className={cn("flex flex-wrap items-center gap-x-1.5 gap-y-0.5", className)}>
+        {/* Commission (partner earnings) - Prominent focus */}
+        {commission !== undefined && (
+          <PriceText 
+            size={getPriceSize()} 
+            color="partner"
+            className="leading-none"
+          >
+            HH {commission}%
+          </PriceText>
+        )}
+
+        <span className="text-text-disabled opacity-30 text-[10px]">/</span>
+
+        {/* Selling Price (what the customer pays) - Consistent style but NOT bold */}
+        <PriceText 
+          size="xs" 
+          color="muted" 
+          className="opacity-40 tracking-normal"
+          weight={400}
+        >
+          {formatMoney(currentPrice)}
+        </PriceText>
+      </div>
+    );
+  }
 
   return (
     <div className={cn("flex flex-col items-start gap-1", className)}>
@@ -54,12 +85,12 @@ export const ProductPrice: React.FC<ProductPriceProps> = ({
           {formatMoney(currentPrice)}
         </PriceText>
 
-        {/* Optional Commission for Partner view */}
-        {commission !== undefined && variant === 'partner' && (
+        {/* Optional Commission for other views (legacy fallback but shouldn't hit with variant='partner' above) */}
+        {commission !== undefined && (
           <PriceText 
             size={getPriceSize()} 
             color="partner"
-            className="leading-none"
+            className="leading-none ml-1"
           >
             +{formatMoney(commission)}
           </PriceText>

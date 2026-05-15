@@ -111,7 +111,7 @@ export const PerformanceAnalyticsView = () => {
            <div className="flex justify-between items-start relative z-10">
               <div className="space-y-1">
                  <CaptionText weight={600} className="text-text-muted uppercase tracking-widest text-[11px]">{t('partner_total_earnings')}</CaptionText>
-                 <Text variant="h1" weight={600} className="text-text-primary tracking-tight leading-none text-3xl">15.240.000đ</Text>
+                 <Text variant="h1" weight={600} className="text-text-primary tracking-tight leading-none text-3xl">15.240.000₫</Text>
               </div>
               <div className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-500/10 rounded-xl border border-emerald-500/20 shadow-sm">
                  <TrendingUp size={14} className="text-emerald-500" />

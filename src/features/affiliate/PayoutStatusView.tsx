@@ -153,7 +153,7 @@ export const PayoutStatusView = () => {
             <AlertCircle size={18} strokeWidth={2.5} />
          </div>
          <CaptionText weight={600} className="leading-relaxed text-text-secondary text-xs">
-            Yêu cầu rút tiền được xử lý tự động vào ngày 15 hàng tháng cho số dư &gt; <span className="text-text-primary font-bold">50.000đ</span>.
+            Yêu cầu rút tiền được xử lý tự động vào ngày 15 hàng tháng cho số dư &gt; <span className="text-text-primary font-bold">50.000₫</span>.
          </CaptionText>
       </div>
       </PageContainer>

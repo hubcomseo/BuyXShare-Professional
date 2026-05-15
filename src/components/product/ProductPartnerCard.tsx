@@ -7,7 +7,7 @@ import { ProductImage } from './ProductImage';
 import { ProductBadges } from './ProductBadges';
 import { ProductPrice } from './ProductPrice';
 import { Badge, Button, IconButton } from '../ui';
-import { Copy, CheckCircle2 } from 'lucide-react';
+import { Copy, CheckCircle2, Star } from 'lucide-react';
 import { formatMoney } from '../../utils/money';
 import { useStore } from '../../store';
 
@@ -51,11 +51,6 @@ export const ProductPartnerCard: React.FC<ProductPartnerCardProps> = ({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           overlay={
             <>
-              <div className="absolute top-2 left-2">
-                <Badge variant="commission" size="xxs" className="font-black h-4 px-1.5 shadow-sm bg-partner-primary text-white border-none">
-                  {product.commissionRate}%
-                </Badge>
-              </div>
               <div className="absolute bottom-2 right-2">
                 <IconButton 
                   onClick={copyLink}
@@ -73,12 +68,18 @@ export const ProductPartnerCard: React.FC<ProductPartnerCardProps> = ({
       
       {/* Product Info Area */}
       <div className="p-3">
-        {/* 1. Brand */}
-        {product.brand && (
-          <Text className="text-[8px] text-text-disabled uppercase font-medium tracking-tight line-clamp-1 mb-1">
-            {product.brand}
-          </Text>
-        )}
+        {/* 1. Brand & Rating */}
+        <div className="flex items-center justify-between mb-1">
+          {product.brand && (
+            <Text className="text-[6.5px] text-text-muted font-medium tracking-tight line-clamp-1 leading-none">
+              {product.brand}
+            </Text>
+          )}
+          <div className="flex items-center gap-0.5">
+            <Text className="text-[9px] text-text-muted font-bold leading-none">4.5</Text>
+            <Star size={12} strokeWidth={2} className="text-yellow-500" />
+          </div>
+        </div>
         
         {/* 2. Product Name */}
         <Text className="text-text-primary text-[14px] leading-[17px] font-semibold line-clamp-2 mb-1.5">
@@ -88,7 +89,7 @@ export const ProductPartnerCard: React.FC<ProductPartnerCardProps> = ({
         <ProductPrice 
           price={product.price} 
           salePrice={product.salePrice}
-          commission={commissionPrice}
+          commission={product.commissionRate}
           variant="partner"
           size="sm"
           className="!gap-1"
