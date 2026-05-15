@@ -82,7 +82,6 @@ export const CategoryDetailView = () => {
     >
       <MobileLargeHeader 
         title={displayTitle}
-        subtitle={`${categoryProducts.length} ${language === 'vi' ? 'sản phẩm' : 'items'}`}
         mode={appMode === 'partner' ? 'partner' : 'customer'}
         isScrolled={isScrolled}
         leftSlot={

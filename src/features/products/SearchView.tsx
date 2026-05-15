@@ -104,7 +104,6 @@ export const SearchView = () => {
     >
       <MobileLargeHeader 
         title={t('search_title')}
-        subtitle={query ? `${filtered.length} ${language === 'vi' ? 'kết quả' : 'results'}` : (language === 'vi' ? 'Tìm bộ sưu tập mới' : 'Find new collections')}
         isScrolled={isScrolled}
       />
 

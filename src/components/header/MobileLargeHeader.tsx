@@ -7,7 +7,6 @@ import { IconButton } from '../ui';
 
 export interface MobileLargeHeaderProps {
   title: string;
-  subtitle?: string;
   leftSlot?: React.ReactNode;
   rightSlot?: React.ReactNode;
   avatar?: string;
@@ -20,7 +19,6 @@ export interface MobileLargeHeaderProps {
 
 export const MobileLargeHeader: React.FC<MobileLargeHeaderProps> = ({
   title,
-  subtitle,
   leftSlot,
   rightSlot,
   avatar,
@@ -36,7 +34,7 @@ export const MobileLargeHeader: React.FC<MobileLargeHeaderProps> = ({
     <div className={cn(
       "fixed top-0 left-0 right-0 z-[60] transition-all duration-500",
       isScrolled 
-        ? "bg-white/78 backdrop-blur-[18px] border-b border-border-subtle/30" 
+        ? "bg-white/78 backdrop-blur-[18px]" 
         : background || "bg-transparent",
       !isScrolled && (mode === 'customer' 
         ? "customer-theme-gradient" 
@@ -68,16 +66,6 @@ export const MobileLargeHeader: React.FC<MobileLargeHeaderProps> = ({
                   >
                     {title}
                   </ScreenTitle>
-                  {!isScrolled && subtitle && (
-                    <CaptionText 
-                      className={cn(
-                        "opacity-60 text-[11px] font-bold uppercase tracking-[1px] mt-0.5",
-                        titleColor === 'white' ? "text-white" : "text-text-muted"
-                      )}
-                    >
-                      {subtitle}
-                    </CaptionText>
-                  )}
                 </div>
               </div>
             </div>

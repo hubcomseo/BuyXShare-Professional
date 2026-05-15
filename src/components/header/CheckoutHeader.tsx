@@ -23,7 +23,7 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
   rightSlot,
 }) => {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-border-subtle shadow-sm transition-all duration-300">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl transition-all duration-300">
       <div className="pt-[env(safe-area-inset-top)]">
         <div className="flex items-center justify-between h-[56px] px-4">
           {/* Left Area */}

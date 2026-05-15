@@ -83,9 +83,6 @@ export const PartnerDashboardView = () => {
       withBottomTabs
       className="space-y-6 relative z-10 px-0 pb-20 pt-0"
     >
-      {/* Decorative Background */}
-      <div className="absolute top-0 left-0 right-0 h-[380px] bg-gradient-to-b from-partner-soft/60 to-transparent pointer-events-none" />
-      
       {/* Standardized Header for Partner Hub */}
       <MobileLargeHeader 
         title={t('partner_dashboard')}

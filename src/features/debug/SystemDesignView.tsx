@@ -46,11 +46,8 @@ import {
   OrderStatusTabs
 } from '../../components/order';
 
-import { 
-  PageContainer, 
-  Section, 
-  SectionHeader 
-} from '../../components/layout';
+import { PageContainer, Section, SectionHeader } from '../../components/layout';
+import { HomeSlider } from '../../components/banner/HomeSlider';
 
 import { Text, CaptionText } from '../../components/ui/Typography';
 import { Product } from '../../types/product';
@@ -105,6 +102,14 @@ export const SystemDesignView: React.FC = () => {
           <Text variant="h1" className="text-3xl font-black italic tracking-tighter uppercase">SYSTEM DESIGN</Text>
           <Text color="muted">Full Component Manifest & Interaction Guide</Text>
         </div>
+
+        {/* Section: Banners */}
+        <Section title="Banners" description="Marketing and promotional sliders">
+          <div className="space-y-4">
+             <Text variant="label" className="pl-1">HomeSlider (16:9 Aspect Ratio)</Text>
+             <HomeSlider />
+          </div>
+        </Section>
 
         {/* Section: Typography */}
         <Section title="Typography" description="Standard global font styles and hierarchy">
@@ -368,7 +373,6 @@ export const SystemDesignView: React.FC = () => {
                 <div className="[&>*]:!relative [&>*]:!top-0 [&>*]:!left-0 [&>*]:!right-0 [&>*]:!z-0">
                   <MobileLargeHeader 
                     title="Tìm sản phẩm" 
-                    subtitle="Khám phá bộ sưu tập mới nhất từ các nhãn hiệu"
                   />
                 </div>
               </div>

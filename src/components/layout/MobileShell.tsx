@@ -61,21 +61,21 @@ export const MobileShell = () => {
 
 
 
-      {/* Bottom bar fade overlay */}
+      {/* Bottom bar fade overlay - Reduced height */}
       {!shouldHideNav && (
         <div 
-          className="fixed bottom-0 left-0 right-0 h-[150px] pointer-events-none z-[8]"
+          className="fixed bottom-0 left-0 right-0 h-[80px] pointer-events-none z-[8]"
           style={{
-            background: 'linear-gradient(to top, rgba(246,247,251,0.98) 0%, rgba(246,247,251,0.88) 35%, rgba(246,247,251,0.55) 65%, rgba(246,247,251,0) 100%)'
+            background: 'linear-gradient(to top, rgba(246,247,251,0.95) 0%, rgba(246,247,251,0.8) 40%, rgba(246,247,251,0) 100%)'
           }}
         />
       )}
 
-      {/* Bottom Tab Bar - Ecommerce Style */}
+      {/* Bottom Tab Bar - Modern Minimalist Style */}
       {!shouldHideNav && (
-        <div className="fixed bottom-0 left-0 w-full z-[10] px-4 pb-[calc(10px+env(safe-area-inset-bottom))]">
-          <div className="bg-white/92 backdrop-blur-[16px] border border-white/40 shadow-[0_-8px_20px_rgba(0,0,0,0.06),0_10px_20px_rgba(0,0,0,0.04)] rounded-[24px] overflow-hidden">
-            <nav className="flex items-center justify-around h-[64px] px-1 translate-y-0 relative z-[11]">
+        <div className="fixed bottom-0 left-0 w-full z-[10] px-6 pb-[calc(12px+env(safe-area-inset-bottom))]">
+          <div className="bg-white/95 backdrop-blur-[24px] border border-white/50 shadow-[0_-12px_40px_-5px_rgba(0,0,0,0.08)] rounded-[28px] overflow-hidden relative">
+            <nav className="flex items-center justify-around h-[64px] px-2 relative z-[11]">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = location.pathname.startsWith(tab.path);
@@ -89,42 +89,39 @@ export const MobileShell = () => {
                 };
 
                 return (
-                  <Button
+                  <button
                     key={tab.path}
                     onClick={handleTabClick}
-                    variant="ghost"
-                    className={cn(
-                      "relative flex-1 h-[48px] flex flex-col items-center justify-center rounded-[16px] active:scale-95 transition-all group bg-transparent p-0 mx-1",
-                      isActive && (appMode === 'customer' ? 'bg-[#EEF2FF]' : 'bg-[#D1FAE5]')
-                    )}
+                    className="relative flex-1 h-[48px] flex flex-col items-center justify-center rounded-[20px] transition-all group p-0 outline-none"
                   >
+                    {/* Sliding active background indicator */}
+                    {isActive && (
+                      <motion.div 
+                        layoutId="activeNavPill"
+                        className={cn(
+                          "absolute inset-y-0 inset-x-1 rounded-2xl z-0",
+                          appMode === 'customer' ? 'bg-[#EEF2FF]' : 'bg-[#D1FAE5]'
+                        )}
+                        transition={{ type: 'spring', bounce: 0.25, duration: 0.5 }}
+                      />
+                    )}
+                    
                     <div className={cn(
-                      "relative z-[12] transition-all duration-300 flex flex-col items-center gap-1",
-                      isActive && "scale-105"
+                      "relative z-[12] transition-all duration-300 flex items-center justify-center",
+                      isActive ? "scale-110" : "scale-100"
                     )}>
                       <Icon 
-                        size={isActive ? 20 : 20} 
+                        size={isActive ? 22 : 22} 
                         strokeWidth={isActive ? 2.5 : 2}
                         className={cn(
                           "transition-colors",
                           isActive 
                             ? (appMode === 'customer' ? 'text-[#4F46E5]' : 'text-[#00B879]')
-                            : 'text-text-muted'
+                            : 'text-text-muted opacity-70 group-hover:opacity-100'
                         )}
                       />
-                      <CaptionText 
-                        weight={isActive ? 700 : 500} 
-                        className={cn(
-                          "text-[10px] leading-none transition-colors tracking-tight", 
-                          isActive 
-                            ? (appMode === 'customer' ? 'text-[#4F46E5]' : 'text-[#00B879]')
-                            : 'text-text-muted'
-                        )}
-                      >
-                        {tab.label}
-                      </CaptionText>
                     </div>
-                  </Button>
+                  </button>
                 );
               })}
             </nav>

@@ -62,7 +62,6 @@ export const MobileTopBar: React.FC<MobileTopBarProps> = ({
   onBack,
   leftSlot,
   rightSlot,
-  border = false,
   background = 'bg-white/78 backdrop-blur-[18px]',
 }) => {
   const navigate = useNavigate();
@@ -70,8 +69,7 @@ export const MobileTopBar: React.FC<MobileTopBarProps> = ({
   return (
     <div className={cn(
       "fixed top-0 left-0 right-0 z-[60] transition-all duration-300",
-      background,
-      border && "border-b border-border-subtle/50"
+      background
     )}>
       <div className="flex items-center justify-between h-[56px] px-4 pt-[env(safe-area-inset-top)]">
         {/* Left Area - 44px fixed width for touch target */}

@@ -138,7 +138,6 @@ export const CategoryListView = () => {
     >
       <MobileLargeHeader 
         title={t('nav_categories')}
-        subtitle={`${categories.length} ${language === 'vi' ? 'danh mục' : 'categories'}`}
         isScrolled={isScrolled}
       />
 
