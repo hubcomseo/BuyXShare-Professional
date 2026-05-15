@@ -12,6 +12,7 @@ import { ProductOrderItem } from '../../components/product/ProductOrderItem';
 import { CommissionSummaryCard } from '../../components/partner/CommissionSummaryCard';
 import { getRoleColors } from '../../theme/roleColors';
 import { EmptyState } from '../../components/feedback';
+import { PageContainer } from '../../components/layout';
 import { FileText } from 'lucide-react';
 
 export const CommissionHistoryView = () => {
@@ -27,46 +28,62 @@ export const CommissionHistoryView = () => {
   const paidCommissions = commissions.filter((c: any) => c.status === 'paid').reduce((sum: number, c: any) => sum + c.commissionAmount, 0);
 
   return (
-    <div className="space-y-6 pb-32">
+    <PageContainer
+      variant="mobile"
+      headerVariant="compact"
+      withHeaderOffset
+      withBottomTabs
+      className="space-y-6"
+    >
       <MobileTopBar
         title="Lịch sử"
       />
-
-      <div className="px-4">
         <CommissionSummaryCard pending={pendingCommissions} paid={paidCommissions} />
-      </div>
 
-      <div className="px-4 space-y-4">
-        <SectionTitle variant="h3">Giao dịch gần đây</SectionTitle>
-        {commissions.length > 0 ? (
-          commissions.map((c: any) => (
-            <ProductOrderItem
-              key={c.id}
-              role="partner"
-              image={c.productImage || '/images/1.jpg'}
-              name={c.productName || 'Affiliate Referral'}
-              amount={c.orderAmount}
-              orderCode={c.orderId.split('-')[1]}
-              commissionAmount={c.commissionAmount}
-              commissionStatus={c.status}
-              customerPhoneMasked={c.customerPhoneMasked}
-            />
-          ))
-        ) : (
-          <EmptyState 
-            icon={FileText}
-            title="Chưa có dữ liệu hoa hồng"
-            description="Bạn chưa có hoa hồng nào từ các chiến dịch. Bắt đầu chia sẻ liên kết để nhận hoa hồng ngay."
-          />
-        )}
-      </div>
+        <div className="space-y-5">
+           <div className="flex items-center justify-between px-1 border-b border-border-subtle pb-4">
+              <div className="flex items-center gap-3">
+                 <div className="w-8 h-8 rounded-xl bg-partner-soft text-partner-primary flex items-center justify-center shrink-0 shadow-inner">
+                    <FileText size={16} strokeWidth={2.5} />
+                 </div>
+                 <SectionTitle variant="h3" className="font-black italic uppercase tracking-tighter text-base m-0">Giao dịch gần đây</SectionTitle>
+              </div>
+              <div className="w-12 h-1 bg-partner-primary/20 rounded-full"></div>
+           </div>
+           
+           <div className="space-y-4">
+              {commissions.length > 0 ? (
+                commissions.map((c: any) => (
+                  <ProductOrderItem
+                    key={c.id}
+                    role="partner"
+                    image={c.productImage || '/images/1.jpg'}
+                    name={c.productName || 'Affiliate Referral'}
+                    amount={c.orderAmount}
+                    orderCode={c.orderId.split('-')[1]}
+                    commissionAmount={c.commissionAmount}
+                    commissionStatus={c.status}
+                    customerPhoneMasked={c.customerPhoneMasked}
+                  />
+                ))
+              ) : (
+                <EmptyState 
+                  icon={FileText}
+                  title="Chưa có dữ liệu hoa hồng"
+                  description="Bạn chưa có hoa hồng nào từ các chiến dịch. Bắt đầu chia sẻ liên kết để nhận hoa hồng ngay."
+                  className="bg-bg-soft rounded-[2rem] border-dashed"
+                />
+              )}
+           </div>
+        </div>
 
-      <div className={`p-6 ${roleColors.softBg} rounded-3xl space-y-3 border border-${roleColors.primaryBg}/20 mx-4`}>
-         <SectionTitle variant="h3">Lưu ý về đối soát</SectionTitle>
-         <BodyText color="medium" className="leading-relaxed">
-           Hoa hồng sẽ được chuyển sang trạng thái <Text as="span" weight={600} className={roleColors.primary}>Đã xác nhận</Text> sau khi đơn hàng hoàn tất và qua thời gian đổi trả (thông thường là 30 ngày).
-         </BodyText>
-      </div>
-    </div>
+        <div className="p-8 bg-partner-soft/30 rounded-[2.5rem] space-y-4 border border-partner-primary/10 relative overflow-hidden group">
+           <div className="absolute top-0 right-0 w-24 h-24 bg-partner-primary/5 rounded-full blur-2xl group-hover:bg-partner-primary/10 transition-colors"></div>
+           <SectionTitle variant="h3" className="font-black italic uppercase tracking-tighter text-base m-0">Lưu ý về đối soát</SectionTitle>
+           <BodyText weight={500} className="leading-relaxed text-text-secondary text-sm">
+             Hoa hồng sẽ được chuyển sang trạng thái <Text as="span" weight={800} className="text-partner-primary italic">Đã xác nhận</Text> sau khi đơn hàng hoàn tất và qua thời gian đổi trả (thông thường là 30 ngày).
+           </BodyText>
+        </div>
+      </PageContainer>
   );
 };

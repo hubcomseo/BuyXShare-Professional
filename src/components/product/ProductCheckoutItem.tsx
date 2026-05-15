@@ -37,9 +37,7 @@ export const ProductCheckoutItem: React.FC<ProductCheckoutItemProps> = ({
       />
       <div className="flex-1 min-w-0 flex flex-col justify-center">
         <Text 
-          variant="body-sm" 
-          weight={600} 
-          className="leading-tight text-text-primary line-clamp-2"
+          className="text-[14px] leading-[17px] font-semibold text-text-primary line-clamp-2"
         >
           {name}
         </Text>

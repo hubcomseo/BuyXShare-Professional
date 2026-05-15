@@ -46,8 +46,8 @@ export const ProductCampaignItem: React.FC<ProductCampaignItemProps> = ({
         
         <div className="p-5 space-y-3">
           <div className="space-y-1">
-            <Text variant="body-sm" color="medium" className="uppercase tracking-widest text-[10px]">{product.brand}</Text>
-            <Text variant="h3" color="dark" weight={600} className="line-clamp-1">{product.name}</Text>
+            <Text className="text-[8px] font-medium text-text-disabled uppercase tracking-tight">{product.brand}</Text>
+            <Text className="text-[16px] leading-[20px] text-text-primary font-bold line-clamp-1">{product.name}</Text>
           </div>
           
           <div className="flex items-center justify-between">

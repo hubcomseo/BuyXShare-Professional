@@ -16,7 +16,9 @@ import {
   MapPin,
   Package
 } from 'lucide-react';
-import { CheckoutHeader } from '../../components/header';
+import { CheckoutHeader } from '../../components/header/CheckoutHeader';
+import { PageContainer } from '../../components/layout/PageContainer';
+import { useTranslation } from '../../lib/i18n';
 import { Text, Heading, ScreenTitle, SectionTitle, BodyText, LabelText, CaptionText, PriceText } from '../../components/ui/Typography';
 import { orderService } from '../../services/order.service';
 import { rewardService } from '../../services/reward.service';
@@ -31,7 +33,6 @@ import { formatMoney } from '../../utils/money';
 import { useStore } from '../../store';
 import { motion } from 'motion/react';
 import { RewardTicketItem } from '../../components/reward';
-import { useTranslation } from '../../lib/i18n';
 
 export const SuccessView = () => {
   const { orderId: paramOrderId } = useParams();
@@ -101,7 +102,12 @@ export const SuccessView = () => {
   const isCOD = order?.paymentMethod === 'cod';
 
   return (
-    <div className="min-h-screen bg-bg-base flex flex-col pb-20">
+    <PageContainer
+      variant="mobile"
+      headerVariant="compact"
+      withHeaderOffset
+      className="space-y-0 pb-20"
+    >
       <CheckoutHeader
         title={t('checkout_success_title')}
         showBack={false}
@@ -200,6 +206,6 @@ export const SuccessView = () => {
           </Button>
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };

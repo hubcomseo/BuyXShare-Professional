@@ -31,7 +31,7 @@ export const AddressSelection: React.FC<AddressSelectionProps> = ({
           <Text weight={600}>Chưa có địa chỉ giao hàng</Text>
           <CaptionText>Vui lòng thêm địa chỉ để tiếp tục thanh toán</CaptionText>
         </div>
-        <Button variant="soft-primary" size="sm" leftIcon={<Plus size={16} />}>
+        <Button variant="soft-customer" size="sm" leftIcon={<Plus size={16} />}>
           Thêm địa chỉ mới
         </Button>
       </Card>

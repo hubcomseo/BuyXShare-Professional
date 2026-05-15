@@ -30,17 +30,17 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, product, reward, ap
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       onClick={() => navigate(`/app/orders/${order.id}`)}
-      className="bg-surface rounded-3xl border border-border-subtle shadow-sm overflow-hidden group hover:border-primary/30 transition-all cursor-pointer relative"
+      className="bg-surface rounded-2xl border border-border-subtle shadow-sm overflow-hidden group hover:border-customer-primary/30 transition-all cursor-pointer relative"
     >
       {/* Header section */}
-      <div className="flex justify-between items-center p-4 border-b border-border-subtle/50 bg-bg-soft">
+      <div className="flex justify-between items-center p-4 border-b border-border-subtle bg-bg-soft/50">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+          <div className="w-10 h-10 rounded-xl bg-customer-soft flex items-center justify-center text-customer-primary">
             <span className="text-xs font-black">#{order.orderCode.slice(-4)}</span>
           </div>
           <div>
-            <div className="text-sm font-bold text-text-primary uppercase tracking-wider">{order.orderCode}</div>
-            <div className="text-xs text-text-muted mt-0.5">{new Date(order.createdAt).toLocaleDateString('vi-VN')}</div>
+            <div className="text-sm font-bold text-text-primary uppercase tracking-tight">{order.orderCode}</div>
+            <div className="text-[11px] text-text-muted font-medium mt-0.5">{new Date(order.createdAt).toLocaleDateString('vi-VN')}</div>
           </div>
         </div>
         <FulfillmentStatusBadge status={order.fulfillmentStatus} size="sm" />
@@ -48,40 +48,33 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order, product, reward, ap
 
       <div className="p-4 space-y-4">
         <div className="flex gap-4">
-          <div className="w-24 h-24 rounded-2xl overflow-hidden bg-surface-soft border border-border-subtle shrink-0 shadow-sm relative group-hover:scale-105 transition-transform duration-500">
+          <div className="w-20 h-20 rounded-xl overflow-hidden bg-bg-soft border border-border-subtle shrink-0 shadow-sm relative group-hover:scale-105 transition-transform duration-500">
             <img src={product?.images?.[0]} className="w-full h-full object-cover" alt="" />
-            <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
           </div>
           <div className="flex-1 min-w-0 flex flex-col justify-center space-y-2">
-            <Text variant="body-md" weight={600} className="line-clamp-2 text-text-primary">{product?.name}</Text>
+            <Text variant="body-md" weight={600} className="line-clamp-2 text-text-primary leading-tight">{product?.name}</Text>
             
             <div className="flex items-center gap-2">
-               <PaymentStatusBadge status={order.paymentStatus} size="xs" />
-               {reward && <RewardStatusBadge status={reward.status} size="xs" />}
+               <PaymentStatusBadge status={order.paymentStatus} size="sm" />
+               {reward && <RewardStatusBadge status={reward.status} size="sm" />}
             </div>
             
             <div className="flex items-end justify-between pt-1">
               <div className="flex flex-col">
-                 <CaptionText className="text-text-muted mb-0.5 font-medium">1 sản phẩm</CaptionText>
-                 <PriceText size="md" color="primary">{formatMoney(order.total)}</PriceText>
+                 <CaptionText className="text-text-muted mb-0.5 font-bold uppercase text-[9px] tracking-wide">Tổng thanh toán</CaptionText>
+                 <PriceText size="md" color="dark">{formatMoney(order.total)}</PriceText>
               </div>
               {isPartner && commission > 0 && (
-                 <div className="text-right bg-partner-primary/10 px-2.5 py-1.5 rounded-xl border border-partner-primary/20">
-                   <CaptionText className="text-partner-primary font-bold block uppercase text-[9px] tracking-widest mb-0.5">Hoa hồng</CaptionText>
-                   <div className="text-partner-primary font-bold text-sm tracking-tight">{formatMoney(commission)}</div>
-                 </div>
-              )}
-              {appMode === 'admin' && (
-                 <div className="text-right bg-emerald-500/10 px-3 py-1.5 rounded-xl border border-emerald-500/20">
-                   <CaptionText className="text-emerald-600 font-bold block uppercase text-[10px] tracking-widest mb-0.5">Đối soát</CaptionText>
-                   <div className="text-emerald-600 font-bold text-base tracking-tight">{formatMoney(order.total * 0.8)}</div>
+                 <div className="text-right bg-partner-soft px-3 py-1.5 rounded-xl border border-partner-border">
+                   <CaptionText className="text-partner-text font-bold block uppercase text-[9px] tracking-wider mb-0.5">Hoa hồng</CaptionText>
+                   <div className="text-partner-text font-bold text-sm tracking-tight">{formatMoney(commission)}</div>
                  </div>
               )}
             </div>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-border-subtle/50" onClick={(e) => e.stopPropagation()}>
+        <div className="pt-4 border-t border-border-subtle" onClick={(e) => e.stopPropagation()}>
           <OrderActions order={order} reward={reward} onAction={onAction} />
         </div>
       </div>

@@ -18,9 +18,11 @@ import { formatMoney } from '../../utils/money';
 import { Product } from '../../types/product';
 import { Button, IconButton, Input } from '../../components/ui';
 import { useStore } from '../../store';
-import { ProductHorizontalItem } from '../../components/product/ProductHorizontalItem';
-import { ProductCompactItem } from '../../components/product/ProductCompactItem';
+import { PageContainer, SectionHeader } from '../../components/layout';
+import { CustomerProductListItem } from '../../components/product/CustomerProductListItem';
+import { PartnerProductListItem } from '../../components/product/PartnerProductListItem';
 import { ProductCard } from '../../components/product/ProductCard';
+import { ProductPartnerCard } from '../../components/product/ProductPartnerCard';
 import { ProductGrid } from '../../components/product/ProductGrid';
 import { ProductSkeleton, ProductEmptyState, ProductHorizontalSkeleton } from '../../components/product/ProductStates';
 import { Logo } from '../../components/Logo';
@@ -28,25 +30,37 @@ import { useAppMode } from '../../hooks/useAppMode';
 import { cn } from '../../lib/utils';
 import { getRoleColors } from '../../theme/roleColors';
 import { useTranslation, TranslationKey } from '../../lib/i18n';
+import { HeaderSpacer } from '../../components/layout';
 
 import { useSearchParams } from 'react-router-dom';
+
+import { ListingToolbar } from '../../components/product/ListingToolbar';
 
 export const SearchView = () => {
   const [searchParams] = useSearchParams();
   const initialCategory = searchParams.get('category');
   const initialGroup = searchParams.get('group');
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const [query, setQuery] = React.useState(initialCategory || initialGroup || '');
   const [isFocused, setIsFocused] = React.useState(false);
+  const [viewMode, setViewMode] = React.useState<'grid' | 'list'>('grid');
+  const [isScrolled, setIsScrolled] = React.useState(false);
+
   const inputRef = React.useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { mode: appMode } = useAppMode();
   const isPartner = appMode === 'partner';
-  const roleColors = getRoleColors(appMode);
   
-  const accentColor = isPartner ? 'text-partner-primary' : 'text-primary';
-  const accentBg = isPartner ? 'bg-partner-primary/10 hover:bg-partner-primary/20' : 'bg-primary/10 hover:bg-primary/20';
+  const accentColor = isPartner ? 'text-partner-primary' : 'text-customer-primary';
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const { data: products = [], isLoading } = useQuery({
     queryKey: ['products'],
@@ -63,7 +77,7 @@ export const SearchView = () => {
     );
 
     if (query.toLowerCase() === 'best sellers') {
-      return products.slice(0, 10); // Mock best sellers
+      return products.slice(0, 10);
     }
     if (query.toLowerCase() === 'new arrivals') {
       return [...products].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
@@ -74,13 +88,6 @@ export const SearchView = () => {
 
   const recentSearches = ['iPhone 15', 'AirPods Pro', 'MacBook Air', 'S24 Ultra'];
 
-  const categories = [
-    { name: t('search_tech'), icon: Smartphone, color: 'text-info', bg: 'bg-info/10' },
-    { name: t('search_promo'), icon: Zap, color: 'text-warning', bg: 'bg-warning/10' },
-    { name: t('search_home_living'), icon: HomeIcon, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
-    { name: t('search_featured'), icon: Sparkles, color: 'text-primary', bg: 'bg-primary/10' },
-  ];
-
   const handleCancel = () => {
     setQuery('');
     setIsFocused(false);
@@ -88,103 +95,84 @@ export const SearchView = () => {
   };
 
   return (
-    <div className="min-h-screen pb-32">
+    <PageContainer
+      variant="mobile"
+      headerVariant="large"
+      withHeaderOffset
+      withBottomTabs
+      className="pb-0"
+    >
       <MobileLargeHeader 
         title={t('search_title')}
+        subtitle={query ? `${filtered.length} ${language === 'vi' ? 'kết quả' : 'results'}` : (language === 'vi' ? 'Tìm bộ sưu tập mới' : 'Find new collections')}
+        isScrolled={isScrolled}
       />
 
       {/* Search Input Area */}
       <div className={cn(
-        "sticky top-[calc(env(safe-area-inset-top)+12px)] z-40 px-5 py-3 transition-all duration-500",
-        isFocused ? "bg-bg-base/90 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] rounded-b-[2rem]" : ""
+        "sticky top-[56px] pt-[env(safe-area-inset-top)] z-40 transition-all duration-300",
+        isScrolled ? "bg-white/78 backdrop-blur-[18px]" : "bg-transparent"
       )}>
-        <div className="flex items-center gap-3">
-          <motion.div 
-            layout
-            className="flex-1"
-          >
-            <Input
-              ref={inputRef}
-              type="text" 
-              placeholder={isPartner ? t('search_placeholder_partner') : t('search_placeholder_customer')}
-              className={cn(
-                "h-14 w-full pl-12 pr-12 rounded-[2rem] bg-surface font-semibold transition-all duration-500 text-[15px]",
-                isFocused 
-                  ? `ring-2 ring-primary/20 border-primary/30 shadow-lg` 
-                  : "shadow-sm hover:shadow-md border-border-subtle"
-              )}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onFocus={() => setIsFocused(true)}
-              leftIcon={<Search size={22} className={cn(isFocused ? accentColor : "text-text-primary/40", "transition-colors")} />}
-              rightIcon={
-                <AnimatePresence mode="wait">
-                  {isFocused || query ? (
-                    <motion.div
-                      key="close"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                    >
-                      <IconButton 
-                        icon={<X size={18} />} 
-                        onClick={handleCancel} 
-                        variant="ghost" 
-                        size="sm"
-                        className="text-text-primary/50 hover:text-text-primary bg-surface-elevated rounded-full w-8 h-8" 
-                        label="Clear search"
-                      />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="filter"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                    >
-                      <IconButton 
-                        icon={<Filter size={20} />} 
-                        variant="ghost" 
-                        size="sm"
-                        className="text-text-primary/60 hover:text-text-primary" 
-                        label="Filter"
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              }
-            />
-          </motion.div>
+        <div className="px-5 py-3">
+          <Input
+            ref={inputRef}
+            type="text" 
+            placeholder={isPartner ? t('search_placeholder_partner') : t('search_placeholder_customer')}
+            className="group-focus-within:shadow-md transition-shadow"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onFocus={() => setIsFocused(true)}
+            leftIcon={<Search size={18} strokeWidth={2.5} className={cn(isFocused ? accentColor : "text-text-disabled", "transition-colors")} />}
+            rightIcon={
+              <IconButton 
+                icon={<X size={16} strokeWidth={3} />} 
+                onClick={handleCancel} 
+                variant="ghost" 
+                size="sm"
+                className={cn("text-text-disabled hover:text-text-primary bg-bg-soft rounded-xl w-8 h-8 transition-opacity", !query && "opacity-0 pointer-events-none")} 
+                label="Clear search"
+              />
+            }
+          />
         </div>
+        
+        {query && (
+          <ListingToolbar 
+            resultCount={filtered.length}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+            onSortClick={() => {}}
+            className="border-b border-border-subtle/30"
+          />
+        )}
       </div>
 
-      <div className="px-5 space-y-8 mt-4">
+      <div className="px-5 mt-4">
         {/* Initial View: Trends & Recents */}
         {!query && (
-          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="space-y-8 animate-in fade-in slide-in-from-bottom-2 duration-300">
             {/* Recent Searches */}
             <div className="space-y-4">
-              <div className="flex items-center justify-between px-1">
-                <SectionTitle size="sm" uppercase className="tracking-tight italic flex items-center gap-2">
-                  {t('search_recent')}
-                </SectionTitle>
-                <LabelText weight={600} className="cursor-pointer hover:text-text-primary px-2 py-1 rounded-lg hover:bg-surface transition-colors">{t('search_clear')}</LabelText>
-              </div>
-              <div className="flex flex-wrap gap-2.5">
+              <SectionHeader 
+                title={t('search_recent')} 
+                action={{
+                  label: t('search_clear'),
+                  onClick: () => {}
+                }}
+                className="px-1"
+              />
+              <div className="flex flex-wrap gap-2">
                 {recentSearches.map((item, i) => (
                   <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.05 }}
                     key={item}
                     onClick={() => setQuery(item)}
-                    className={cn(
-                      "flex items-center gap-2 rounded-full px-4 py-2 border border-border-subtle bg-surface cursor-pointer shadow-sm active:scale-95 transition-all",
-                      "hover:border-primary/30 hover:bg-primary/5"
-                    )}
+                    className="flex items-center gap-2 rounded-xl px-4 py-2 border border-border-subtle bg-white cursor-pointer shadow-sm active:scale-95 transition-all hover:border-customer-primary/30 hover:bg-customer-soft"
                   >
-                    <History size={14} className="text-text-muted" />
-                    <BodyText size="md" weight={500} color="muted">{item}</BodyText>
+                    <History size={14} className="text-text-disabled" />
+                    <Text weight={600} className="text-text-secondary text-[13px] tracking-tight">{item}</Text>
                   </motion.div>
                 ))}
               </div>
@@ -192,120 +180,72 @@ export const SearchView = () => {
 
             {/* Trending */}
             <div className="space-y-4">
-               <div className="flex items-center gap-2 px-1">
-                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-rose-500/20 to-orange-500/20 flex items-center justify-center">
-                    <TrendingUp size={16} className="text-rose-500" />
-                 </div>
-                 <SectionTitle size="sm" uppercase className="tracking-tight italic">{t('search_trending')}</SectionTitle>
-               </div>
+               <SectionHeader 
+                 title={t('search_trending')} 
+                 className="px-1"
+               />
                <div className="space-y-1">
                  {products.slice(0, 3).map((p, i) => (
                    <div key={p.id} className="relative group">
-                     <div className="absolute top-1/2 -translate-y-1/2 left-2 font-black italic text-3xl text-border-strong opacity-30 group-hover:opacity-100 group-hover:text-primary transition-all pointer-events-none z-10 w-8 text-center font-heading">
+                     <div className="absolute top-1/2 -translate-y-1/2 left-2 font-black italic text-4xl text-border-strong/10 group-hover:text-customer-primary/20 transition-all pointer-events-none z-10 w-8 text-center">
                         {i + 1}
                      </div>
-                     <ProductCompactItem product={p} className={cn("border-none bg-transparent hover:bg-surface-elevated transition-colors rounded-2xl p-3 pl-12", isPartner && "pl-12")} />
+                     <ProductCard key={p.id} product={p} className="border-none bg-transparent hover:bg-bg-soft transition-colors rounded-2xl" />
                    </div>
                  ))}
                </div>
             </div>
-
-            {/* Categories or Suggestions */}
-            <div className="space-y-4 pt-4">
-              <SectionTitle size="sm" uppercase className="tracking-tight italic px-1 mb-4">{t('search_popular_categories')}</SectionTitle>
-              <div className="grid grid-cols-2 gap-3">
-                {categories.map((cat, i) => (
-                  <motion.div 
-                     initial={{ opacity: 0, scale: 0.95 }}
-                     animate={{ opacity: 1, scale: 1 }}
-                     transition={{ delay: i * 0.1 }}
-                     key={cat.name}
-                     onClick={() => setQuery(cat.name)}
-                     className="bg-surface rounded-3xl p-5 border border-border-subtle shadow-sm flex flex-col justify-center gap-3 cursor-pointer group transition-all relative overflow-hidden active:scale-95 hover:border-primary/30"
-                  >
-                    <div className="absolute -right-4 -top-4 w-16 h-16 bg-gradient-to-br from-white/10 to-transparent rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-                    
-                    <div className={cn("w-10 h-10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform", cat.bg, cat.color)}>
-                       <cat.icon size={20} />
-                    </div>
-                    <CardTitle size="sm" className="tracking-tight">{cat.name}</CardTitle>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Loading State */}
-        {query && isLoading && (
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map(i => (
-              <ProductHorizontalSkeleton key={i} />
-            ))}
           </div>
         )}
 
         {/* Search Results */}
-        {query && !isLoading && (
-          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-300">
-            <div className="flex items-center justify-between px-1">
-              <CaptionText weight={600} className="uppercase tracking-widest text-text-muted text-[11px]">
-                {t('search_title')} ({filtered.length})
-              </CaptionText>
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-text-secondary cursor-pointer hover:text-text-primary px-2 py-1 rounded-lg hover:bg-surface transition-colors">
-                {t('search_filter')}
-                <Filter size={14} className="text-text-muted" />
-              </div>
-            </div>
-
-            {filtered.length > 0 ? (
-              <div className="space-y-3">
-                {filtered.map((p, i) => (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.05 }}
-                    key={p.id}
-                  >
-                    <ProductHorizontalItem 
-                      product={p} 
-                      variant={isPartner ? 'partner' : 'customer'}
-                    />
-                  </motion.div>
+        {query && (
+          <div className="pb-24">
+            {isLoading ? (
+              <div className="space-y-4 mt-4">
+                {[1, 2, 3, 4].map(i => (
+                  <div key={i} className="h-28 bg-white/50 animate-pulse rounded-2xl" />
                 ))}
               </div>
+            ) : filtered.length > 0 ? (
+              <div className="mt-4">
+                {viewMode === 'grid' ? (
+                  <ProductGrid>
+                    {filtered.map(p => (
+                      isPartner ? (
+                        <ProductPartnerCard key={p.id} product={p} />
+                      ) : (
+                        <ProductCard key={p.id} product={p} />
+                      )
+                    ))}
+                  </ProductGrid>
+                ) : (
+                  <div className="bg-surface rounded-2xl overflow-hidden shadow-sm border border-border-subtle">
+                    {filtered.map(p => (
+                      isPartner ? (
+                        <PartnerProductListItem key={p.id} product={p} />
+                      ) : (
+                        <CustomerProductListItem key={p.id} product={p} />
+                      )
+                    ))}
+                  </div>
+                )}
+              </div>
             ) : (
-              <div className="bg-surface rounded-[2rem] border border-border-subtle shadow-sm p-8 flex flex-col items-center justify-center text-center space-y-4">
-                <div className="w-16 h-16 rounded-full bg-surface-elevated flex items-center justify-center">
-                  <Search size={32} className="text-border-strong" />
+              <div className="bg-bg-soft rounded-[2rem] border border-dashed border-border-strong/30 p-10 flex flex-col items-center justify-center text-center space-y-4 mt-8">
+                <div className="w-16 h-16 rounded-3xl bg-white flex items-center justify-center shadow-sm">
+                  <Search size={32} className="text-text-disabled" strokeWidth={1.5} />
                 </div>
                 <div>
-                  <Text variant="body-lg" weight={600} className="text-text-primary">{t('search_no_results')}</Text>
-                  <CaptionText className="text-text-muted mt-1">{t('search_try_again')}</CaptionText>
+                  <Text variant="body-lg" weight={800} className="text-text-primary tracking-tight">{t('search_no_results')}</Text>
+                  <CaptionText className="text-text-disabled mt-1 font-medium">{t('search_try_again')}</CaptionText>
                 </div>
-              </div>
-            )}
-            
-            {/* Suggested for you */}
-            {filtered.length === 0 && (
-              <div className="pt-8 space-y-6">
-                <div className="flex items-center gap-2 px-1">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Sparkles size={16} className="text-primary" />
-                  </div>
-                  <SectionTitle variant="h3" className="m-0">{t('search_suggested')}</SectionTitle>
-                </div>
-                <ProductGrid>
-                  {products.slice(0, 4).map(p => (
-                    <ProductCard key={p.id} product={p} />
-                  ))}
-                </ProductGrid>
               </div>
             )}
           </div>
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

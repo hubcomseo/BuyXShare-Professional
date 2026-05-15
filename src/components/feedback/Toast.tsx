@@ -42,7 +42,7 @@ export const Toast: React.FC<ToastProps> = ({ id, variant, title, message, durat
            initial={{ opacity: 0, y: 50, scale: 0.95 }}
            animate={{ opacity: 1, y: 0, scale: 1 }}
            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-           className={cn("p-4 rounded-2xl border shadow-lg flex items-start gap-3 w-full max-w-sm pointer-events-auto", bg)}
+           className={cn("p-4 rounded-xl border shadow-lg flex items-start gap-3 w-full max-w-sm pointer-events-auto", bg)}
         >
            <StatusIcon status={variant} size="md" className="shrink-0 mt-0.5" />
            <div className="flex-1 min-w-0">

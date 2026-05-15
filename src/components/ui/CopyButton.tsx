@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { Button, ButtonProps } from './Button';
 import { useToast } from '../toast';
+import { useStore } from '../../store';
 
 interface CopyButtonProps extends Omit<ButtonProps, 'children'> {
   value: string;
@@ -13,12 +14,13 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
   value,
   label = 'Copy',
   successLabel = 'Copied!',
-  variant = 'accent',
+  variant = 'primary',
   size = 'md',
   ...props
 }) => {
   const [copied, setCopied] = useState(false);
   const { showToast } = useToast();
+  const { appMode } = useStore();
 
   const handleCopy = async () => {
     try {
@@ -39,9 +41,11 @@ export const CopyButton: React.FC<CopyButtonProps> = ({
     }
   };
 
+  const softVariant = appMode === 'customer' ? 'soft-customer' : 'soft-partner';
+
   return (
     <Button
-      variant={copied ? 'soft-accent' : variant}
+      variant={copied ? softVariant : variant}
       size={size}
       onClick={handleCopy}
       leftIcon={copied ? <Check size={18} /> : <Copy size={18} />}

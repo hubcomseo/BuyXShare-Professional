@@ -13,40 +13,40 @@ export interface BaseStatusBadgeProps extends Omit<BadgeProps, 'children' | 'var
 // --- Status Configs ---
 
 const PAYMENT_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {
-  pending: { label: 'Chờ thanh toán', short: 'Chờ TT', variant: 'warning' },
-  paid: { label: 'Đã thanh toán', short: 'Đã TT', variant: 'success' },
-  failed: { label: 'Thanh toán lỗi', short: 'Lỗi TT', variant: 'error' },
-  refunded: { label: 'Đã hoàn tiền', short: 'Hoàn tiền', variant: 'neutral' },
-  cod_pending: { label: 'Chờ thanh toán COD', short: 'COD', variant: 'warning' },
+  pending: { label: 'Chờ TT', short: 'Chờ TT', variant: 'warning' },
+  paid: { label: 'Đã TT', short: 'Đã TT', variant: 'success' },
+  failed: { label: 'Lỗi TT', short: 'Lỗi TT', variant: 'error' },
+  refunded: { label: 'Hoàn tiền', short: 'Hoàn tiền', variant: 'neutral' },
+  cod_pending: { label: 'COD', short: 'COD', variant: 'warning' },
 };
 
 const FULFILLMENT_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {
-  new: { label: 'Đơn mới', short: 'Mới', variant: 'info' },
-  processing: { label: 'Đang xử lý', short: 'Xử lý', variant: 'customer' },
+  new: { label: 'Mới', short: 'Mới', variant: 'info' },
+  processing: { label: 'Xử lý', short: 'Xử lý', variant: 'customer' },
   shipped: { label: 'Đang giao', short: 'Giao', variant: 'info' },
-  delivered: { label: 'Hoàn tất', short: 'Xong', variant: 'success' },
-  completed: { label: 'Hoàn tất', short: 'Xong', variant: 'success' },
-  cancelled: { label: 'Đã hủy', short: 'Hủy', variant: 'error' },
+  delivered: { label: 'Xong', short: 'Xong', variant: 'success' },
+  completed: { label: 'Xong', short: 'Xong', variant: 'success' },
+  cancelled: { label: 'Hủy', short: 'Hủy', variant: 'error' },
 };
 
 const COMMISSION_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {
-  pending: { label: 'Chờ đối soát', short: 'Chờ ĐS', variant: 'warning' },
-  confirmed: { label: 'Đã xác nhận', short: 'Xác nhận', variant: 'commission' },
-  paid: { label: 'Đã chi trả', short: 'Đã trả', variant: 'success' },
-  cancelled: { label: 'Đã hủy', short: 'Hủy', variant: 'error' },
+  pending: { label: 'Chờ ĐS', short: 'Chờ ĐS', variant: 'warning' },
+  confirmed: { label: 'Xác nhận', short: 'Xác nhận', variant: 'commission' },
+  paid: { label: 'Đã trả', short: 'Đã trả', variant: 'success' },
+  cancelled: { label: 'Hủy', short: 'Hủy', variant: 'error' },
 };
 
 const REWARD_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {
-  pending: { label: 'Vé chờ xác nhận', short: 'Chờ', variant: 'warning' },
-  confirmed: { label: 'Vé hợp lệ', short: 'Hợp lệ', variant: 'reward' },
-  winner: { label: 'Trúng thưởng', short: 'Trúng', variant: 'success' },
+  pending: { label: 'Chờ', short: 'Chờ', variant: 'warning' },
+  confirmed: { label: 'Hợp lệ', short: 'Hợp lệ', variant: 'reward' },
+  winner: { label: 'Trúng', short: 'Trúng', variant: 'reward' },
   expired: { label: 'Hết hạn', short: 'Hết hạn', variant: 'neutral' },
 };
 
 const STOCK_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {
-  in_stock: { label: 'Còn hàng', short: 'Còn', variant: 'success' },
-  low_stock: { label: 'Sắp hết hàng', short: 'Sắp hết', variant: 'warning' },
-  out_of_stock: { label: 'Hết hàng', short: 'Hết', variant: 'error' },
+  in_stock: { label: 'Còn', short: 'Còn', variant: 'success' },
+  low_stock: { label: 'Sắp hết', short: 'Sắp hết', variant: 'warning' },
+  out_of_stock: { label: 'Hết', short: 'Hết', variant: 'error' },
 };
 
 const CAMPAIGN_STATUS: Record<string, { label: string; short: string; variant: BadgeVariant }> = {

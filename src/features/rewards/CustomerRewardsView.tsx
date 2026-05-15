@@ -6,13 +6,14 @@ import { MobileLargeHeader } from '../../components/header';
 import { useStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 import { rewardService } from '../../services/reward.service';
-import { IconButton, Button, Badge } from '../../components/ui';
+import { IconButton, Button, Badge, Input } from '../../components/ui';
 import { motion, AnimatePresence } from 'motion/react';
 import { JackpotWinnerCard } from '../../components/reward';
 import { useAppMode } from '../../hooks/useAppMode';
 import { EmptyState } from '../../components/feedback';
 import { cn } from '../../lib/utils';
 import { RewardTicket } from '../../types/reward';
+import { PageContainer } from '../../components/layout';
 
 import { useTranslation } from '../../lib/i18n';
 
@@ -25,21 +26,21 @@ const OrderTicketGroup = ({ orderId, tickets, defaultOpen = false }: { orderId: 
   const isAllPending = tickets.every(t => t.status === 'pending');
   
   return (
-    <div className="bg-surface border border-border-subtle rounded-3xl overflow-hidden shadow-sm hover:border-primary/30 transition-colors">
+    <div className="bg-white border border-border-subtle rounded-[2rem] overflow-hidden shadow-sm hover:border-customer-primary/30 transition-all duration-300">
       <div 
-        className={cn("p-4 flex items-center justify-between cursor-pointer", isOpen ? "bg-surface-elevated border-b border-border-subtle" : "")}
+        className={cn("p-5 flex items-center justify-between cursor-pointer transition-colors", isOpen ? "bg-bg-soft/50 border-b border-border-subtle" : "")}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-            <ShoppingBag size={20} />
+        <div className="flex items-center gap-4">
+          <div className="w-12 h-12 rounded-2xl bg-customer-soft flex items-center justify-center text-customer-primary shadow-inner">
+            <ShoppingBag size={20} strokeWidth={2.5} />
           </div>
           <div>
-            <LabelText weight={600} color="dark" uppercase className="tracking-widest">#{orderId.slice(-6)}</LabelText>
+            <LabelText weight={800} color="dark" className="tracking-tighter uppercase italic text-xs">ORDER #{orderId.slice(-6)}</LabelText>
             <div className="flex items-center gap-2 mt-0.5">
-              <CaptionText>{tickets.length} {language === 'vi' ? 'Vé dự thưởng' : 'Entries'}</CaptionText>
+              <CaptionText weight={600} className="text-text-disabled uppercase text-[10px] tracking-widest">{tickets.length} {language === 'vi' ? 'Vé dự thưởng' : 'Entries'}</CaptionText>
               {winningCount > 0 && (
-                <Badge variant="success" size="xs">
+                <Badge variant="reward" size="xs" className="animate-pulse">
                   {winningCount} {language === 'vi' ? 'Trúng thưởng!' : 'Winners!'}
                 </Badge>
               )}
@@ -47,7 +48,9 @@ const OrderTicketGroup = ({ orderId, tickets, defaultOpen = false }: { orderId: 
           </div>
         </div>
         <div className="flex items-center gap-3">
-          {isOpen ? <ChevronUp size={20} className="text-text-muted" /> : <ChevronDown size={20} className="text-text-muted" />}
+          <div className={cn("w-8 h-8 rounded-xl bg-bg-soft flex items-center justify-center transition-transform duration-300", isOpen && "rotate-180")}>
+            <ChevronDown size={18} className="text-text-disabled" strokeWidth={2.5} />
+          </div>
         </div>
       </div>
       
@@ -59,17 +62,19 @@ const OrderTicketGroup = ({ orderId, tickets, defaultOpen = false }: { orderId: 
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden"
           >
-            <div className="p-4 bg-surface/50">
+            <div className="p-5 bg-bg-soft/20">
               {isAllPending ? (
-                <div className="flex items-center gap-2 p-3 rounded-xl bg-warning/10 text-warning text-xs font-medium border border-warning/20 mb-4">
-                  <AlertCircle size={16} />
-                  {language === 'vi' 
-                    ? 'Kỳ quay thưởng chưa diễn ra, vui lòng chờ thông báo.' 
-                    : 'Draw has not occurred yet, please wait for notification.'}
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-amber-50 text-amber-700 text-xs font-bold border border-amber-200 mb-4 animate-in fade-in slide-in-from-top-2">
+                  <AlertCircle size={18} strokeWidth={2.5} />
+                  <span>
+                    {language === 'vi' 
+                      ? 'Kỳ quay thưởng chưa diễn ra, vui lòng chờ thông báo.' 
+                      : 'Draw has not occurred yet, please wait for notification.'}
+                  </span>
                 </div>
               ) : null}
               
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-3">
                 {tickets.map(ticket => {
                   const isWinner = ticket.status === 'winner';
                   const isConfirmed = ticket.status === 'confirmed';
@@ -79,23 +84,23 @@ const OrderTicketGroup = ({ orderId, tickets, defaultOpen = false }: { orderId: 
                       key={ticket.id}
                       onClick={() => navigate(`/app/rewards/${ticket.id}`)}
                       className={cn(
-                        "relative flex items-center justify-between p-3 rounded-xl border text-sm cursor-pointer transition-all active:scale-95",
+                        "relative flex items-center justify-between p-4 rounded-2xl border text-sm cursor-pointer transition-all active:scale-95",
                         isWinner 
-                          ? "bg-accent/10 border-accent/30 text-accent font-bold shadow-[0_0_15px_rgba(0,217,145,0.15)]" 
+                          ? "bg-reward-soft border-reward-primary/40 text-reward-primary font-black shadow-lg shadow-reward-primary/10" 
                           : isConfirmed
-                            ? "bg-surface-elevated border-border-subtle text-text-primary hover:border-primary/40"
-                            : "bg-surface border-border-subtle text-text-muted opacity-80"
+                            ? "bg-white border-border-subtle text-text-primary hover:border-customer-primary/40 shadow-sm"
+                            : "bg-white/50 border-border-subtle text-text-disabled opacity-80"
                       )}
                     >
                       <div className="flex items-center gap-2 overflow-hidden">
-                        <Ticket size={16} className={cn("shrink-0", isWinner ? "text-accent" : "text-text-muted")} />
-                        <span className="truncate tracking-tight font-mono">{ticket.ticketCode}</span>
+                        <Ticket size={16} strokeWidth={isWinner ? 2.5 : 2} className={cn("shrink-0", isWinner ? "text-reward-primary" : "text-text-disabled")} />
+                        <span className="truncate tracking-tighter font-mono font-bold">{ticket.ticketCode}</span>
                       </div>
-                      <ChevronRight size={14} className={isWinner ? "text-accent/50" : "text-text-muted/50"} />
+                      <ChevronRight size={14} strokeWidth={2.5} className={isWinner ? "text-reward-primary/50" : "text-text-disabled/50"} />
 
                       {/* Small shine effect for winner */}
                       {isWinner && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
                       )}
                     </div>
                   );
@@ -145,91 +150,98 @@ export const CustomerRewardsView = () => {
   }, [rewards]);
 
   return (
-    <div className="min-h-screen flex flex-col pb-32">
-      <MobileLargeHeader
+    <PageContainer
+      variant="mobile"
+      headerVariant="large"
+      withHeaderOffset
+      withBottomTabs
+      className="space-y-8 pt-2 px-5 pb-20"
+    >
+      <MobileLargeHeader 
         title={t('nav_perks')}
+        showModeBadge={false}
       />
 
-      <div className="px-4 space-y-6 pt-2">
-        
         {/* Focused Ticket Tracking Form */}
-        <div className="bg-surface rounded-3xl p-5 border border-border-subtle shadow-sm space-y-4 relative overflow-hidden">
-           <div className="flex items-center gap-3">
-             <div className="w-10 h-10 rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-               <Search size={20} />
+        <div className="bg-white rounded-[2rem] p-6 border border-border-subtle shadow-sm space-y-5 relative overflow-hidden">
+           <div className="flex items-center gap-4">
+             <div className="w-12 h-12 rounded-2xl bg-customer-soft flex items-center justify-center text-customer-primary shrink-0 shadow-inner">
+               <Search size={22} strokeWidth={2.5} />
              </div>
              <div>
-               <LabelText weight={600} color="dark">{t('rewards_order_search_label')}</LabelText>
-               <CaptionText className="mt-0.5">{t('rewards_order_search_desc')}</CaptionText>
+               <LabelText weight={800} color="dark" className="uppercase italic tracking-tighter text-sm leading-tight">{t('rewards_order_search_label')}</LabelText>
+               <CaptionText className="text-text-disabled font-medium text-[11px] mt-0.5">{t('rewards_order_search_desc')}</CaptionText>
              </div>
            </div>
            
            <form 
              className="relative"
              onSubmit={(e) => {
-               e.preventDefault();
-               const query = (e.currentTarget.elements.namedItem('search') as HTMLInputElement).value;
-               if (query) navigate(`/p/track?q=${encodeURIComponent(query)}`);
+                e.preventDefault();
+                const input = e.currentTarget.elements.namedItem('search') as HTMLInputElement;
+                const query = input.value;
+                if (query) navigate(`/p/track/${encodeURIComponent(query)}`);
              }}
            >
-              <input 
+              <Input 
                  name="search"
                  type="text"
                  placeholder={t('rewards_order_search_placeholder')}
-                 className="w-full bg-surface-elevated border border-border-subtle rounded-2xl h-14 pl-4 pr-14 text-text-primary placeholder:text-text-muted/50 outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 transition-all font-mono text-[14px] shadow-sm"
+                 className="pr-14 font-mono focus:shadow-md transition-shadow"
+                 rightIcon={
+                    <IconButton 
+                      type="submit"
+                      icon={<ChevronRight size={18} strokeWidth={2.5} />}
+                      variant="primary"
+                      size="sm"
+                      className="h-8 w-8 shrink-0 shadow-lg shadow-customer-primary/20"
+                      label={language === 'vi' ? 'Kiểm tra' : 'Check'}
+                    />
+                 }
               />
-              <div className="absolute inset-y-2 right-2">
-                 <IconButton 
-                   type="submit"
-                   icon={<ChevronRight size={20} />}
-                   variant="primary"
-                   size="sm"
-                   className="h-10 w-10 shrink-0"
-                   label={language === 'vi' ? 'Kiểm tra' : 'Check'}
-                 />
-              </div>
            </form>
         </div>
 
         {/* Jackpot Quick Stats Grid */}
-        <div className="grid grid-cols-2 gap-3">
-           <div className="bg-accent rounded-[2.5rem] p-6 text-white shadow-lg shadow-accent/20 relative overflow-hidden flex flex-col justify-between min-h-[200px] active:scale-[0.98] transition-transform">
-              <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/10">
-                 <Ticket size={28} className="text-white -rotate-12" />
+        <div className="grid grid-cols-2 gap-4">
+           <div className="bg-reward-primary rounded-[2.5rem] p-6 text-white shadow-xl shadow-reward-primary/20 relative overflow-hidden flex flex-col justify-between min-h-[200px] active:scale-[0.98] transition-all">
+              <div className="w-14 h-14 rounded-[1.5rem] bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/10 shadow-lg">
+                 <Ticket size={28} strokeWidth={2.5} className="text-white -rotate-12" />
               </div>
               
               <div className="mt-4 relative z-10">
-                 <LabelText uppercase weight={600} className="opacity-70 mb-1 tracking-widest text-white">{t('rewards_jackpot_draw')}</LabelText>
-                 <MetricText size="lg" color="white" className="leading-none tracking-tight">{t('rewards_next_draw')}42</MetricText>
+                 <LabelText uppercase weight={800} className="text-white/60 mb-1 tracking-[2px] text-[10px] italic">{t('rewards_jackpot_draw')}</LabelText>
+                 <MetricText size="lg" color="white" className="leading-none tracking-tighter font-black italic uppercase">42 {t('rewards_next_draw')}</MetricText>
               </div>
 
               <div className="mt-6 relative z-10">
-                 <div className="h-2.5 w-full bg-white/20 rounded-full overflow-hidden">
+                 <div className="h-3 w-full bg-black/10 rounded-full overflow-hidden p-0.5 border border-white/5">
                     <motion.div 
                       initial={{ width: 0 }}
                       animate={{ width: '70.8%' }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="h-full bg-white rounded-full shadow-[0_0_12px_rgba(255,255,255,0.6)]" 
+                      transition={{ duration: 1.5, ease: "circOut" }}
+                      className="h-full bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,1)]" 
                     />
                  </div>
               </div>
 
-              {/* Decorative circle */}
+              {/* Decorative elements */}
               <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl" />
+              <div className="absolute top-0 right-0 w-16 h-16 bg-white/5 rounded-full blur-xl" />
            </div>
 
-           <div className="bg-surface rounded-[2.5rem] p-6 border border-border-subtle shadow-sm flex flex-col justify-between min-h-[200px] active:scale-[0.98] transition-transform">
+           <div className="bg-white rounded-[2.5rem] p-6 border border-border-subtle shadow-sm flex flex-col justify-between min-h-[200px] active:scale-[0.98] transition-all">
               <div className="flex -space-x-4">
-                 <div className="w-14 h-14 rounded-[1.25rem] bg-[#5B63F1] flex items-center justify-center text-white font-black text-xl border-4 border-surface shadow-sm">A</div>
-                 <div className="w-14 h-14 rounded-[1.25rem] bg-accent flex items-center justify-center text-white font-black text-xl border-4 border-surface shadow-sm">B</div>
-                 <div className="w-14 h-14 rounded-[1.25rem] bg-surface-elevated flex items-center justify-center text-text-muted font-black text-sm border-4 border-surface shadow-sm">+4</div>
+                 <div className="w-14 h-14 rounded-2xl bg-[#5B63F1] flex items-center justify-center text-white font-black italic text-xl border-4 border-white shadow-lg">A</div>
+                 <div className="w-14 h-14 rounded-2xl bg-reward-primary flex items-center justify-center text-white font-black italic text-xl border-4 border-white shadow-lg">B</div>
+                 <div className="w-14 h-14 rounded-2xl bg-bg-soft flex items-center justify-center text-text-disabled font-black text-xs border-4 border-white shadow-inner">+4</div>
               </div>
 
               <div className="mt-auto">
-                 <LabelText uppercase weight={600} className="opacity-60 mb-1 tracking-widest">{t('rewards_just_issued')}</LabelText>
+                 <LabelText uppercase weight={800} className="text-text-disabled mb-1 tracking-[2px] text-[10px] italic leading-none">{t('rewards_just_issued')}</LabelText>
                  <div className="flex items-baseline gap-1.5 flex-wrap">
-                    <MetricText size="lg" className="leading-none tracking-tight">7.2K</MetricText>
-                    <LabelText uppercase weight={600} color="primary" className="tracking-widest">{t('profile_rewards')}</LabelText>
+                    <MetricText size="lg" className="leading-none tracking-tighter font-black italic uppercase">7.2K</MetricText>
+                    <LabelText uppercase weight={800} className="tracking-widest text-customer-primary text-[10px]">{t('profile_rewards')}</LabelText>
                  </div>
               </div>
            </div>
@@ -244,23 +256,23 @@ export const CustomerRewardsView = () => {
         )}
 
         {/* Grouped Tickets Section */}
-        <div className="space-y-4 pt-2">
-           <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                 <div className="w-1.5 h-6 bg-primary rounded-full" />
-                 <SectionTitle variant="h3" className="m-0 text-lg">{t('rewards_current_cycle')}</SectionTitle>
+        <div className="space-y-6 pt-4">
+           <div className="flex items-center justify-between px-1">
+              <div className="flex items-center gap-3">
+                 <div className="w-1.5 h-6 bg-customer-primary rounded-full shadow-sm shadow-customer-primary/30" />
+                 <SectionTitle variant="h3" className="m-0 text-xl font-black italic uppercase tracking-tighter">{t('rewards_current_cycle')}</SectionTitle>
               </div>
               <Button 
                 variant="ghost" 
                 size="sm"
-                className="text-[12px] font-bold text-primary px-0 hover:bg-transparent"
+                className="text-[10px] font-black uppercase tracking-widest text-customer-primary px-3 py-1.5 h-auto rounded-full bg-customer-soft hover:bg-customer-soft/80"
                 onClick={() => navigate('/app/rewards/rules')}
               >
                 {t('rewards_rules')}
               </Button>
            </div>
 
-           <div className="space-y-3">
+           <div className="space-y-4">
               {groupedTickets.map((group, index) => (
                  <OrderTicketGroup 
                    key={group.orderId}
@@ -281,8 +293,7 @@ export const CustomerRewardsView = () => {
                )}
            </div>
         </div>
-      </div>
-    </div>
+      </PageContainer>
   );
 };
 

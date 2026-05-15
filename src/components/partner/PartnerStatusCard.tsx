@@ -13,9 +13,9 @@ export const PartnerStatusCard = ({ confirmed, pending, paid }: PartnerStatusCar
   return (
     <div className="relative group">
       {/* Outer Glow */}
-      <div className="absolute inset-0 bg-gradient-to-r from-partner-primary via-partner-strong to-partner-primary rounded-3xl blur-2xl opacity-10 group-hover:opacity-30 transition-opacity duration-700"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-partner-primary via-partner-strong to-partner-primary rounded-xl blur-2xl opacity-10 group-hover:opacity-30 transition-opacity duration-700"></div>
       
-      <div className="relative bg-surface rounded-[2rem] p-6 overflow-hidden border border-partner-primary/20 shadow-lg">
+      <div className="relative bg-surface rounded-xl p-6 overflow-hidden border border-partner-primary/20 shadow-lg">
         {/* Background Effects */}
         <div className="absolute top-0 right-0 w-[120%] h-[120%] bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-partner-primary/10 via-transparent to-transparent opacity-60"></div>
         
@@ -33,7 +33,7 @@ export const PartnerStatusCard = ({ confirmed, pending, paid }: PartnerStatusCar
                  {formatMoney(confirmed)}
                </MetricText>
              </div>
-             <div className="w-14 h-14 bg-partner-primary/10 rounded-2xl border border-partner-primary/20 flex items-center justify-center backdrop-blur-sm shadow-inner group-hover:scale-105 transition-transform duration-500">
+             <div className="w-14 h-14 bg-partner-primary/10 rounded-lg border border-partner-primary/20 flex items-center justify-center backdrop-blur-sm shadow-inner group-hover:scale-105 transition-transform duration-500">
                <Wallet size={26} strokeWidth={1.5} className="text-partner-primary" />
              </div>
           </div>

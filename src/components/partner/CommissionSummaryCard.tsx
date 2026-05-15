@@ -11,14 +11,14 @@ interface CommissionSummaryCardProps {
 export const CommissionSummaryCard = ({ pending, paid }: CommissionSummaryCardProps) => {
   return (
     <div className="grid grid-cols-2 gap-4">
-      <div className="bg-surface p-4 rounded-2xl border border-border-subtle shadow-sm">
+      <div className="bg-surface p-4 rounded-xl border border-border-subtle shadow-sm">
          <div className="flex items-center gap-1.5 mb-1.5">
             <Clock size={12} className="text-warning" />
             <CaptionText color="muted" className="uppercase tracking-widest">Chờ duyệt</CaptionText>
          </div>
          <CardTitle color="dark" weight={600}>{formatMoney(pending)}</CardTitle>
       </div>
-      <div className="bg-surface p-4 rounded-2xl border border-border-subtle shadow-sm">
+      <div className="bg-surface p-4 rounded-xl border border-border-subtle shadow-sm">
          <div className="flex items-center gap-1.5 mb-1.5">
             <CheckCircle2 size={12} className="text-partner-primary" />
             <CaptionText color="muted" className="uppercase tracking-widest">Đã thanh toán</CaptionText>

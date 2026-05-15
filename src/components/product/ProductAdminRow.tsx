@@ -33,8 +33,8 @@ export const ProductAdminRow: React.FC<ProductAdminRowProps> = ({
       </div>
       
       <div className="col-span-4 min-w-0">
-        <Text variant="body-sm" weight={600} className="line-clamp-1 text-text-primary">{product.name}</Text>
-        <CaptionText color="muted">{product.brand} • {product.category}</CaptionText>
+        <Text className="text-[14px] leading-[17px] font-semibold text-text-primary line-clamp-1">{product.name}</Text>
+        <Text className="text-[8px] font-medium text-text-disabled uppercase tracking-tight">{product.brand} • {product.category}</Text>
       </div>
       
       <div className="col-span-2 text-right">

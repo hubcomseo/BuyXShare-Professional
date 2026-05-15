@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Text, Heading, CaptionText, MetricText } from '../../components/ui/Typography';
 import { MobileTopBar, HeaderActionButton } from '../../components/header';
+import { PageContainer } from '../../components/layout/PageContainer';
 import { rewardService } from '../../services/reward.service';
 import { Badge, RewardStatusBadge } from '../../components/ui';
 import { motion, AnimatePresence } from 'motion/react';
@@ -83,7 +84,12 @@ export const TicketDetailView = () => {
   const isValid = ticket.status === 'confirmed';
 
   return (
-    <div className="min-h-screen bg-bg-base flex flex-col pt-safe-top pb-safe-bottom">
+    <PageContainer
+      variant="mobile"
+      headerVariant="compact"
+      withHeaderOffset
+      className="space-y-0"
+    >
       <MobileTopBar
         title={t('rewards_detail_title')}
         showBack={true}
@@ -244,9 +250,9 @@ export const TicketDetailView = () => {
 
                   <Button 
                     fullWidth
-                    variant="accent" 
+                    variant="reward" 
                     size="lg"
-                    className="uppercase tracking-[0.2em] font-black h-14 relative z-10 mt-2 hover:shadow-[0_0_25px_rgba(0,217,145,0.4)] transition-shadow"
+                    className="uppercase tracking-[0.2em] font-black h-14 relative z-10 mt-2 hover:shadow-[0_0_25px_rgba(245,158,11,0.4)] transition-shadow"
                     onClick={() => {}}
                     rightIcon={<ExternalLink size={18} />}
                   >
@@ -340,7 +346,7 @@ export const TicketDetailView = () => {
         </div>
 
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

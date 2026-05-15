@@ -20,9 +20,9 @@ export const AffiliateLinkGenerator = () => {
   };
 
   return (
-    <div className="bg-surface p-5 rounded-3xl border border-border-subtle shadow-sm space-y-4">
+    <div className="bg-surface p-5 rounded-xl border border-border-subtle shadow-sm space-y-4">
        <div className="flex items-center gap-2">
-         <div className="p-2 bg-accent/10 rounded-xl text-accent">
+         <div className="p-2 bg-accent/10 rounded-lg text-accent">
            <LinkIcon size={18} />
          </div>
          <Text weight={600}>Link Generator</Text>
@@ -34,17 +34,17 @@ export const AffiliateLinkGenerator = () => {
          onChange={(e) => setProductSlug(e.target.value)}
        />
        
-       <div className="flex gap-2 p-1.5 bg-surface-soft rounded-2xl border border-border-subtle shadow-inner">
+       <div className="flex gap-2 p-1.5 bg-surface-soft rounded-lg border border-border-subtle shadow-inner">
          <div className="flex-1 px-4 py-3 truncate flex items-center select-all whitespace-nowrap overflow-hidden">
             <CaptionText color="medium" className="truncate">{affiliateLink}</CaptionText>
          </div>
          <IconButton 
            onClick={copyToClipboard}
            icon={copied ? <CheckCircle2 size={20} className="text-emerald-500" /> : <Copy size={20} />}
-           variant={copied ? "secondary" : "accent"}
+           variant={copied ? "soft-partner" : "primary"}
            size="md"
            label="Copy generated link"
-           className="rounded-xl shadow-md"
+           className="rounded-md shadow-md"
          />
        </div>
     </div>

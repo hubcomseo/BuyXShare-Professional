@@ -6,6 +6,7 @@ export * from './CheckoutShell';
 export * from './PageContainer';
 export * from './Section';
 export * from './SectionHeader';
+export * from './HeaderSpacer';
 export * from './ContentGrid';
 export * from './SafeAreaView';
 export * from './AnimatedBackground';

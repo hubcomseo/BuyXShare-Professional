@@ -25,7 +25,7 @@ export const Section: React.FC<SectionProps> = ({
   ...props
 }) => {
   return (
-    <section className={cn(noPadding ? "" : "py-6", className)} {...props}>
+    <section className={cn(noPadding ? "" : "py-3", className)} {...props}>
       {(title || description || action) && (
         <SectionHeader 
           title={title!} 

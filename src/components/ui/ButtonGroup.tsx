@@ -16,7 +16,7 @@ export const ButtonGroup: React.FC<ButtonGroupProps> = ({
 }) => {
   return (
     <div className={cn(
-      'inline-flex overflow-hidden rounded-[12px] border border-border-subtle',
+      'inline-flex overflow-hidden rounded-xl border border-border-subtle shadow-sm',
       vertical ? 'flex-col' : 'flex-row',
       fullWidth ? 'w-full' : '',
       className

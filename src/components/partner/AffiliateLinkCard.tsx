@@ -32,14 +32,14 @@ export const AffiliateLinkCard = ({ affiliateLink }: AffiliateLinkCardProps) => 
             Link chia sẻ
          </SectionTitle>
       </div>
-      <div className="flex gap-2 p-1.5 bg-surface-soft rounded-2xl border border-border-subtle shadow-inner">
+      <div className="flex gap-2 p-1.5 bg-surface-soft rounded-lg border border-border-subtle shadow-inner">
         <div className="flex-1 px-4 py-3 truncate flex items-center select-all whitespace-nowrap overflow-hidden">
            <BodyText color="medium" className="truncate">{affiliateLink}</BodyText>
         </div>
         <IconButton 
           onClick={copyToClipboard}
           icon={copied ? <CheckCircle2 size={24} /> : <Copy size={24} />}
-          variant={copied ? "accent" : "secondary"}
+          variant={copied ? "soft-partner" : "secondary"}
           size="icon-md"
           label="Copy referral link"
         />

@@ -41,7 +41,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
            initial={{ opacity: 0, scale: 0.95, y: 20 }}
            animate={{ opacity: 1, scale: 1, y: 0 }}
            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-           className="relative w-full max-w-sm bg-surface rounded-3xl p-6 shadow-md border border-border-subtle"
+           className="relative w-full max-w-sm bg-surface rounded-2xl p-6 shadow-md border border-border-subtle"
         >
            <div className="flex flex-col items-center text-center space-y-4">
               <StatusIcon status={isDestructive ? 'error' : 'warning'} size="md" withContainer />
@@ -50,10 +50,10 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                 <CaptionText className="leading-relaxed">{message}</CaptionText>
               </div>
               <div className="flex gap-3 w-full pt-2">
-                 <Button variant="ghost" fullWidth onClick={onCancel} className="rounded-xl bg-surface-soft hover:bg-surface-elevated">
+                 <Button variant="ghost" fullWidth onClick={onCancel} className="rounded-md bg-surface-soft hover:bg-surface-elevated">
                    {cancelLabel}
                  </Button>
-                 <Button variant={isDestructive ? "primary" : "primary"} fullWidth onClick={onConfirm} className={`rounded-xl ${isDestructive ? 'bg-error hover:bg-error/90 text-white' : ''}`}>
+                 <Button variant={isDestructive ? "primary" : "primary"} fullWidth onClick={onConfirm} className={`rounded-md ${isDestructive ? 'bg-error hover:bg-error/90 text-white' : ''}`}>
                    {confirmLabel}
                  </Button>
               </div>

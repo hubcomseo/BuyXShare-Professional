@@ -168,6 +168,11 @@ export const translations = {
     home_up_to: 'Up to 20%',
     home_instant_payout: 'Instant Payout',
     home_flash_sale_ongoing: 'Flash Sale Ongoing',
+    flash_deal_today: 'Flash Deal Today',
+    discount_up_to_40: 'Up to 40% Off',
+    get_dexspace_ticket: 'Get DexSpace Ticket',
+    buy_now: 'Buy Now',
+    view_more: 'View More',
     home_rank_label: 'Rank',
     home_commission_title: 'Up to 20% Commission',
     home_next_payout: 'Next Payout',
@@ -350,6 +355,7 @@ export const translations = {
     rewards_empty_title: 'No rewards yet',
     rewards_empty_desc: 'Shop and join partner campaigns to earn tickets!',
     rewards_explore: 'Shop Now',
+    partner_view_stats: 'View stats',
   },
   vi: {
     // Common
@@ -366,6 +372,11 @@ export const translations = {
     nav_search: 'Tìm kiếm',
     nav_perks: 'Đặc quyền',
     nav_profile: 'Cá nhân',
+    view_more: 'Xem thêm',
+    buy_now: 'Mua ngay',
+    flash_deal_today: 'Flash Deal hôm nay',
+    discount_up_to_40: 'Giảm đến 40%',
+    get_dexspace_ticket: 'Nhận vé DexSpace',
     
     // Home View
     home_title: 'Tuyển chọn',
@@ -513,7 +524,7 @@ export const translations = {
     home_commission_teaser: 'Chia sẻ nhận hoa hồng mỗi ngày',
     home_up_to: 'Lên đến 20%',
     home_instant_payout: 'Thanh toán ngay',
-    home_flash_sale_ongoing: 'Flash Sale đang diễn ra',
+    home_flash_sale_ongoing: 'Đang diễn ra',
     home_rank_label: 'Cấp bậc',
     home_commission_title: 'Hoa hồng tới 20%',
     home_next_payout: 'Thanh toán kế tiếp',
@@ -697,6 +708,7 @@ export const translations = {
     rewards_empty_title: 'Chưa có phần thưởng',
     rewards_empty_desc: 'Mua sắm và tham gia chiến dịch để nhận vé thưởng!',
     rewards_explore: 'Mua sắm ngay',
+    partner_view_stats: 'Xem thống kê',
   }
 };
 

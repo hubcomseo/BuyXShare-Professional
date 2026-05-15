@@ -13,10 +13,10 @@ export const OrderRewardNotice = ({ reward }: OrderRewardNoticeProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative group overflow-hidden bg-surface rounded-3xl p-6 border border-primary/20 shadow-sm hover:shadow-md transition-all">
+    <div className="relative group overflow-hidden bg-surface rounded-xl p-6 border border-primary/20 shadow-sm hover:shadow-md transition-all">
        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-2xl -mr-16 -mt-16"></div>
        <div className="flex gap-4 relative z-10">
-         <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
+         <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center text-primary shrink-0">
            <Ticket size={24} />
          </div>
          <div className="flex-1 space-y-2">
@@ -28,7 +28,7 @@ export const OrderRewardNotice = ({ reward }: OrderRewardNoticeProps) => {
              <Text variant="body-sm" weight={600}>Bạn nhận được 1 vé thưởng từ đơn hàng này!</Text>
            </div>
            
-           <Button variant="soft-primary" size="sm" className="rounded-xl mt-2" onClick={() => navigate('/app/rewards')}>Xem vé thưởng</Button>
+           <Button variant="soft-customer" size="sm" className="rounded-md mt-2" onClick={() => navigate('/app/rewards')}>Xem vé thưởng</Button>
          </div>
        </div>
     </div>

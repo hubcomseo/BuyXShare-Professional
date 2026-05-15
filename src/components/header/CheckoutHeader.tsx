@@ -23,51 +23,53 @@ export const CheckoutHeader: React.FC<CheckoutHeaderProps> = ({
   rightSlot,
 }) => {
   return (
-    <div className="w-full bg-transparent pt-[calc(env(safe-area-inset-top)+16px)] transition-all duration-300">
-      <div className="flex items-center justify-between h-[56px] px-4">
-        {/* Left Area */}
-        <div className="w-[40px] shrink-0 flex items-center justify-start">
-          {showBack && (
-            <HeaderActionButton 
-              icon={isClose ? <X size={22} strokeWidth={2} /> : <ChevronLeft size={22} strokeWidth={2} />} 
-              onClick={onBack} 
-            />
-          )}
-        </div>
+    <div className="fixed top-0 left-0 right-0 z-50 bg-surface/90 backdrop-blur-xl border-b border-border-subtle shadow-sm transition-all duration-300">
+      <div className="pt-[env(safe-area-inset-top)]">
+        <div className="flex items-center justify-between h-[56px] px-4">
+          {/* Left Area */}
+          <div className="w-[44px] shrink-0 flex items-center justify-start">
+            {showBack && (
+              <HeaderActionButton 
+                icon={isClose ? <X size={22} strokeWidth={2.5} /> : <ChevronLeft size={22} strokeWidth={2.5} />} 
+                onClick={onBack} 
+              />
+            )}
+          </div>
 
-        {/* Center Area */}
-        <div className="flex-1 min-w-0 flex flex-col items-center justify-center px-2">
-          {stepLabel && (
+          {/* Center Area */}
+          <div className="flex-1 min-w-0 flex flex-col items-center justify-center px-2">
+            {stepLabel && (
+               <Text 
+                as="p"
+                className="text-[10px] leading-[14px] font-bold text-customer-primary uppercase tracking-[0.15em] truncate w-full text-center mb-0.5"
+              >
+                {stepLabel}
+              </Text>
+            )}
              <Text 
-              as="p"
-              className="text-[12px] leading-[18px] font-normal text-text-secondary truncate w-full text-center mt-0.5"
+              as="h2"
+              className="text-[17px] leading-[22px] font-black text-text-primary truncate w-full text-center tracking-tight"
             >
-              {stepLabel}
+              {title}
             </Text>
-          )}
-           <Text 
-            as="h2"
-            className="text-[16px] leading-[24px] font-semibold text-text-primary truncate w-full text-center"
-          >
-            {title}
-          </Text>
-        </div>
+          </div>
 
-        {/* Right Area */}
-        <div className="w-[40px] shrink-0 flex items-center justify-end gap-2">
-          {rightSlot || null}
+          {/* Right Area */}
+          <div className="w-[44px] shrink-0 flex items-center justify-end gap-2">
+            {rightSlot || null}
+          </div>
         </div>
+        
+        {/* Progress Bar */}
+        {progress !== undefined && (
+          <div className="w-full h-[3px] bg-bg-soft overflow-hidden">
+            <div 
+              className="h-full bg-customer-primary transition-all duration-500 ease-out shadow-[0_0_8px_rgba(79,70,229,0.4)]" 
+              style={{ width: `${progress * 100}%` }}
+            />
+          </div>
+        )}
       </div>
-      
-      {/* Progress Bar */}
-      {progress !== undefined && (
-        <div className="w-full h-1 bg-surface-soft overflow-hidden">
-          <div 
-            className="h-full bg-primary transition-all duration-300 ease-out rounded-r-full" 
-            style={{ width: `${progress * 100}%` }}
-          />
-        </div>
-      )}
     </div>
   );
 };

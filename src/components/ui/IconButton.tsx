@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 import { useStore } from '../../store';
 import { ButtonVariant } from './Button';
 
-export type IconButtonSize = 'sm' | 'md' | 'lg' | 'icon-sm' | 'icon-md' | 'icon-lg';
+export type IconButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'icon-xs' | 'icon-sm' | 'icon-md' | 'icon-lg';
 
 export interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'children'> {
   variant?: ButtonVariant;
@@ -14,18 +14,22 @@ export interface IconButtonProps extends Omit<HTMLMotionProps<'button'>, 'childr
 }
 
 const sizeStyles: Record<IconButtonSize, string> = {
-  sm: 'w-[36px] h-[36px]',
-  md: 'w-[44px] h-[44px]',
-  lg: 'w-[52px] h-[52px]',
-  'icon-sm': 'w-[36px] h-[36px]',
+  xs: 'w-[28px] h-[28px]',
+  sm: 'w-[34px] h-[34px]',
+  md: 'w-[42px] h-[42px]',
+  lg: 'w-[48px] h-[48px]',
+  'icon-xs': 'w-[28px] h-[28px]',
+  'icon-sm': 'w-[34px] h-[34px]',
   'icon-md': 'w-[40px] h-[40px]',
   'icon-lg': 'w-[44px] h-[44px]',
 };
 
 const iconSizes: Record<IconButtonSize, number> = {
+  xs: 14,
   sm: 18,
   md: 20,
   lg: 24,
+  'icon-xs': 14,
   'icon-sm': 18,
   'icon-md': 20,
   'icon-lg': 22,
@@ -43,26 +47,32 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
   }, ref) => {
     const { appMode } = useStore();
     
-    // Radius is 12px for icon buttons
-    const borderRadius = 'rounded-[12px]';
+    // Radius is 8px for icon buttons
+    const borderRadius = (size === 'lg' || size === 'icon-lg') ? 'rounded-2xl' : 'rounded-xl';
 
     const variantStyles: Record<ButtonVariant, string> = {
       primary: cn(
         appMode === 'customer' 
-          ? 'bg-customer-strong text-white shadow-customer-strong/20 active:bg-customer-primary' 
-          : 'bg-partner-primary text-bg-base shadow-partner-primary/20 active:bg-partner-strong',
-        'shadow-md border-none'
+          ? 'bg-customer-primary text-white shadow-sm shadow-customer-primary/20 active:bg-customer-strong' 
+          : 'bg-partner-primary text-white shadow-sm shadow-partner-primary/20 active:bg-partner-strong',
+        'border-none'
       ),
-      accent: 'bg-accent text-bg-base active:bg-partner-strong shadow-md shadow-accent/20 border-none',
-      secondary: 'bg-surface text-text-secondary border border-border-subtle active:bg-surface-elevated',
-      ghost: 'bg-transparent text-text-muted active:bg-surface active:text-text-primary',
-      danger: 'bg-error text-white active:opacity-90 shadow-md shadow-error/20 border-none',
-      'soft-primary': appMode === 'customer' 
-        ? 'bg-customer-soft text-customer-primary active:bg-customer-soft/80' 
-        : 'bg-partner-soft text-partner-primary active:bg-partner-soft/80',
-      'soft-accent': 'bg-accent-soft text-accent active:bg-accent-soft/80',
-      outline: 'bg-transparent text-text-secondary border border-border-subtle active:border-customer-strong active:text-text-primary',
-      link: 'bg-transparent text-customer-strong hover:underline p-0 h-auto rounded-none border-none shadow-none',
+      buy: 'bg-buy-primary text-white active:bg-buy-strong shadow-sm shadow-buy-primary/20 border-none',
+      secondary: 'bg-white text-text-primary border border-border-default shadow-sm active:bg-surface-soft',
+      ghost: 'bg-transparent text-text-primary hover:bg-surface-soft active:bg-surface-soft active:text-text-primary',
+      danger: 'bg-sale text-white active:opacity-90 shadow-sm shadow-sale/20 border-none',
+      'danger-soft': 'bg-sale/10 text-sale active:bg-sale/20',
+      'soft-customer': 'bg-customer-soft text-customer-primary active:bg-customer-primary/20',
+      'soft-partner': 'bg-partner-soft text-partner-primary active:bg-partner-primary/20',
+      reward: 'bg-reward-soft text-reward-text active:opacity-80',
+      sale: 'bg-sale-soft text-sale-text active:opacity-80',
+      outline: 'bg-transparent text-text-primary border border-border-default active:bg-surface-soft',
+      link: cn(
+        'bg-transparent hover:underline p-0 h-auto rounded-none border-none shadow-none',
+        appMode === 'customer' ? 'text-customer-primary' : 'text-partner-primary'
+      ),
+      partner: 'bg-partner-primary text-white active:bg-partner-strong shadow-sm shadow-partner-primary/20',
+      customer: 'bg-customer-primary text-white active:bg-customer-strong shadow-sm shadow-customer-primary/20',
     };
 
     return (

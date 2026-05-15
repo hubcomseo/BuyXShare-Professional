@@ -13,6 +13,7 @@ import {
 import { motion } from 'motion/react';
 
 import { MobileLargeHeader } from '../../components/header/MobileLargeHeader';
+import { PageContainer } from '../../components/layout/PageContainer';
 import { Input } from '../../components/ui';
 import { ProductErrorState } from '../../components/product/ProductStates';
 import { OrderCard, OrderStatusTabs, OrderEmptyState, TabStatus } from '../../components/order';
@@ -23,6 +24,8 @@ import { useStore } from '../../store';
 import { useAppMode } from '../../hooks/useAppMode';
 import { RewardTicket } from '../../types/reward';
 
+import { HeaderSpacer } from '../../components/layout';
+import { useHeaderHeight } from '../../hooks/useHeaderHeight';
 import { useTranslation } from '../../lib/i18n';
 
 export const MyOrdersView = () => {
@@ -98,24 +101,33 @@ export const MyOrdersView = () => {
     return result.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
   }, [orders, activeTab, searchQuery, productMap]);
 
+  const headerHeight = useHeaderHeight();
+
   if (ordersError) return <ProductErrorState onRetry={refetchOrders} />;
 
   return (
-    <div className="min-h-screen bg-bg-base pb-32">
-      <div className="z-30 bg-bg-base/90 backdrop-blur-xl sticky top-0 pb-4 space-y-4">
-        <MobileLargeHeader
-          title={t('orders_title')}
-          background="bg-transparent"
-        />
+    <PageContainer
+      variant="mobile"
+      headerVariant="large"
+      withHeaderOffset
+      withBottomTabs
+      className="space-y-0"
+    >
+      <MobileLargeHeader
+        title={t('orders_title')}
+      />
 
+      <div 
+        className="z-30 sticky top-[56px] pt-[env(safe-area-inset-top)] bg-white/78 backdrop-blur-[18px] pb-4 space-y-4"
+      >
         <div className="px-4">
            <Input 
              type="text" 
              placeholder={t('orders_find_placeholder')} 
-             leftIcon={<Search size={20} className="text-text-muted transition-colors focus-within:text-primary" />}
+             leftIcon={<Search size={18} strokeWidth={2.5} className="text-text-disabled" />}
              value={searchQuery}
              onChange={(e) => setSearchQuery(e.target.value)}
-             className="h-14 w-full rounded-[2rem] bg-surface/50 border border-border-subtle shadow-sm focus:ring-2 focus:ring-primary/20 focus:border-primary/30 focus:bg-surface transition-all text-[15px]"
+             className="focus-within:shadow-md transition-shadow"
            />
         </div>
 
@@ -154,6 +166,6 @@ export const MyOrdersView = () => {
           <OrderEmptyState activeTab={activeTab} setActiveTab={setActiveTab} />
         )}
       </div>
-    </div>
+    </PageContainer>
   );
 };

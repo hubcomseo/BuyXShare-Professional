@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Product } from '../../types/product';
-import { Text, LabelText, CardTitle, PriceText } from '../ui/Typography';
+import { Text, LabelText, CardTitle, PriceText, CaptionText } from '../ui/Typography';
 import { cn } from '../../lib/utils';
 import { ProductImage } from './ProductImage';
 import { ProductBadges } from './ProductBadges';
-import { Button } from '../ui/Button';
+import { ProductPrice } from './ProductPrice';
+import { Badge, Button, IconButton } from '../ui';
 import { Copy, CheckCircle2 } from 'lucide-react';
 import { formatMoney } from '../../utils/money';
 import { useStore } from '../../store';
@@ -33,68 +34,65 @@ export const ProductPartnerCard: React.FC<ProductPartnerCardProps> = ({
     }
   };
 
-  const productUrl = `/app/partner/products/${product.slug}`;
+  const productUrl = `/app/partner/marketplace/products/${product.slug}`;
 
   return (
     <div 
       className={cn(
-        "group flex flex-col bg-surface rounded-[2rem] overflow-hidden shadow-sm border border-border-subtle hover:border-partner-primary/30 transition-all relative h-full active:scale-[0.98]",
+        "group flex flex-col bg-white rounded-2xl overflow-hidden shadow-sm border border-border-subtle transition-all relative active:scale-[0.98]",
         className
       )}
     >
       {/* Product Image */}
-      <Link to={productUrl} className="block relative aspect-square bg-surface-soft overflow-hidden">
+      <Link to={productUrl} className="block relative aspect-square bg-slate-100 overflow-hidden">
         <ProductImage 
           src={product.images?.[0]} 
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           overlay={
             <>
-              <div className="absolute top-3 left-3">
-                <ProductBadges commissionRate={product.commissionRate} />
+              <div className="absolute top-2 left-2">
+                <Badge variant="commission" size="xxs" className="font-black h-4 px-1.5 shadow-sm bg-partner-primary text-white border-none">
+                  {product.commissionRate}%
+                </Badge>
               </div>
-              <div className="absolute bottom-3 right-3">
-                <button 
+              <div className="absolute bottom-2 right-2">
+                <IconButton 
                   onClick={copyLink}
-                  className={cn(
-                    "w-9 h-9 rounded-xl flex items-center justify-center transition-all shadow-lg active:scale-90",
-                    copied 
-                      ? "bg-partner-primary text-white" 
-                      : "bg-black/40 backdrop-blur-md text-white border border-white/20 hover:bg-partner-primary hover:border-partner-primary"
-                  )}
-                >
-                  {copied ? <CheckCircle2 size={16} /> : <Copy size={16} />}
-                </button>
+                  variant="secondary"
+                  size="icon-xs"
+                  icon={copied ? <CheckCircle2 size={12} /> : <Copy size={12} />}
+                  label="Copy affiliate link"
+                  className="shadow-md rounded-full h-8 w-8 bg-white/90 backdrop-blur-sm text-partner-primary border-none hover:bg-white"
+                />
               </div>
             </>
           }
         />
       </Link>
       
-      {/* Product Info */}
-      <div className="flex-1 p-5 flex flex-col">
-        <Link to={productUrl} className="block mb-2">
-          <div className="space-y-1">
-            {product.brand && (
-              <LabelText uppercase className="tracking-widest opacity-60">{product.brand}</LabelText>
-            )}
-            <CardTitle 
-              size="sm"
-              className="line-clamp-1 leading-tight group-hover:text-partner-primary transition-colors h-5"
-            >
-              {product.name}
-            </CardTitle>
-          </div>
-        </Link>
+      {/* Product Info Area */}
+      <div className="p-3">
+        {/* 1. Brand */}
+        {product.brand && (
+          <Text className="text-[8px] text-text-disabled uppercase font-medium tracking-tight line-clamp-1 mb-1">
+            {product.brand}
+          </Text>
+        )}
         
-        <div className="mt-auto pt-2">
-          {/* Amount */}
-          <div className="flex flex-col">
-            <PriceText>
-              +{formatMoney(commissionPrice)}
-            </PriceText>
-          </div>
-        </div>
+        {/* 2. Product Name */}
+        <Text className="text-text-primary text-[14px] leading-[17px] font-semibold line-clamp-2 mb-1.5">
+          {product.name}
+        </Text>
+
+        <ProductPrice 
+          price={product.price} 
+          salePrice={product.salePrice}
+          commission={commissionPrice}
+          variant="partner"
+          size="sm"
+          className="!gap-1"
+        />
       </div>
     </div>
   );

@@ -13,6 +13,7 @@ import {
   Package,
 } from 'lucide-react';
 import { MobileTopBar } from '../../components/header';
+import { PageContainer } from '../../components/layout/PageContainer';
 import { Text, SectionTitle, CaptionText } from '../../components/ui/Typography';
 import { rewardService } from '../../services/reward.service';
 import { TrackRewardResult } from '../../types/reward';
@@ -54,11 +55,19 @@ export const RewardTrackingView = () => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    setSearchTerm(query);
+    if (query.trim()) {
+      setSearchTerm(query.trim());
+      navigate(`/p/track?q=${encodeURIComponent(query.trim())}`, { replace: true });
+    }
   };
 
   return (
-    <div className="min-h-screen bg-bg-base flex flex-col pt-safe-top pb-safe-bottom">
+    <PageContainer
+      variant="mobile"
+      headerVariant="compact"
+      withHeaderOffset
+      className="space-y-0"
+    >
       <MobileTopBar
         title={t('logistics_tracking')}
         showBack={true}
@@ -228,7 +237,7 @@ export const RewardTrackingView = () => {
           )}
         </div>
       </div>
-    </div>
+    </PageContainer>
   );
 };
 

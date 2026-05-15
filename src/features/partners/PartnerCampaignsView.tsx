@@ -22,6 +22,7 @@ import { Badge } from '../../components/ui';
 import { Button, IconButton } from '../../components/ui';
 import { useStore } from '../../store';
 import { cn } from '../../lib/utils';
+import { PageContainer } from '../../components/layout';
 
 import { useTranslation } from '../../lib/i18n';
 
@@ -91,7 +92,13 @@ export const PartnerCampaignsView = () => {
   ];
 
   return (
-    <div className="min-h-screen pb-32">
+    <PageContainer
+      variant="mobile"
+      headerVariant="large"
+      withHeaderOffset
+      withBottomTabs
+      className="space-y-8 mt-4"
+    >
       <MobileLargeHeader 
         title={t('partner_campaigns')} 
         rightSlot={
@@ -102,10 +109,7 @@ export const PartnerCampaignsView = () => {
         }
       />
 
-      <div className="px-4 space-y-8 mt-4">
-        
-        {/* Categories / Tags - Synchronized with Report style */}
-        <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 snap-x">
+      <div className="flex gap-2 overflow-x-auto pb-4 scrollbar-hide -mx-4 px-4 snap-x">
           {campaignTags.map((tag) => (
             <div 
               key={tag.id}
@@ -246,8 +250,7 @@ export const PartnerCampaignsView = () => {
            </div>
         </div>
 
-      </div>
-    </div>
+      </PageContainer>
   );
 };
 

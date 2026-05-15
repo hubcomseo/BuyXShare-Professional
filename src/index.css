@@ -6,98 +6,99 @@
   --font-heading: "Roboto Condensed", ui-sans-serif, system-ui, sans-serif;
   
   /* Backgrounds */
-  --color-bg-base: #0B1220;
-  --color-bg-soft: #111827;
+  --color-bg-base: #F6F7FB;
+  --color-bg-soft: #F1F5F9;
   
   /* Surfaces */
-  --color-surface: #151F2E;
-  --color-surface-elevated: #1E293B;
-  --color-surface-soft: #223047;
+  --color-surface: #FFFFFF;
+  --color-surface-elevated: #FFFFFF;
+  --color-surface-soft: #F1F5F9;
+  --color-overlay: rgba(15, 23, 42, 0.48);
   
   /* Borders */
-  --color-border-subtle: #2A3A50;
-  --color-border-strong: #334155;
+  --color-border-subtle: #E2E8F0;
+  --color-border-default: #CBD5E1;
+  --color-border-strong: #94A3B8;
   
   /* Typography */
-  --color-text-primary: #F8FAFC;
-  --color-text-secondary: #CBD5E1;
-  --color-text-muted: #94A3B8;
-  --color-text-disabled: #64748B;
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #334155;
+  --color-text-muted: #64748B;
+  --color-text-disabled: #94A3B8;
+  --color-text-inverse: #FFFFFF;
   
-  /* Brand */
-  --color-primary: #6366F1;
-  --color-primary-light: #818CF8;
-  --color-primary-soft: #1E1B4B;
+  /* Role Colors */
+  /* Customer Role (Indigo) */
+  --color-customer-primary: #4F46E5;
+  --color-customer-strong: #3730A3;
+  --color-customer-soft: #EEF2FF;
+  --color-customer-subtle: #F5F3FF;
+  --color-customer-text: #4338CA;
+  --color-customer-border: #C7D2FE;
+
+  /* Partner Role (Green) */
+  --color-partner-primary: #00B879;
+  --color-partner-strong: #059669;
+  --color-partner-soft: #D1FAE5;
+  --color-partner-subtle: #ECFDF5;
+  --color-partner-text: #047857;
+  --color-partner-border: #A7F3D0;
+
+  /* Ecommerce Action Colors */
+  /* Buy / Conversion */
+  --color-buy-primary: #00B879;
+  --color-buy-strong: #059669;
+  --color-buy-soft: #D1FAE5;
+  --color-buy-text: #FFFFFF;
+
+  /* Sale / Deal */
+  --color-sale-primary: #EF4444;
+  --color-sale-strong: #DC2626;
+  --color-sale-soft: #FEF2F2;
+  --color-sale-text: #DC2626;
+
+  /* Reward */
+  --color-reward-primary: #F59E0B;
+  --color-reward-strong: #D97706;
+  --color-reward-soft: #FEF3C7;
+  --color-reward-text: #B45309;
   
-  /* Accent/Action */
-  --color-accent: #00D991;
-  --color-accent-soft: #064E3B;
-  
-  /* Feedback */
-  --color-info: #60A5FA;
-  --color-warning: #FACC15;
-  --color-error: #F87171;
-  --color-success: #34D399;
-
-  /* Badge Soft Backgrounds */
-  --color-success-soft: rgba(52, 211, 153, 0.14);
-  --color-warning-soft: rgba(250, 204, 21, 0.14);
-  --color-error-soft: rgba(248, 113, 113, 0.14);
-  --color-info-soft: rgba(96, 165, 250, 0.14);
-  --color-customer-soft: rgba(129, 140, 248, 0.14);
-  --color-partner-soft: rgba(0, 217, 145, 0.14);
-  --color-neutral-soft: rgba(148, 163, 184, 0.12);
-  --color-reward-soft: rgba(0, 217, 145, 0.14);
-  --color-commission-soft: rgba(0, 217, 145, 0.14);
-
-  /* Customer Role Tokens (Indigo) */
-  --color-customer-primary: #818CF8;
-  --color-customer-strong: #6366F1;
-  --color-customer-soft: #1E1B4B;
-  --color-customer-subtle: rgba(129, 140, 248, 0.14);
-  --color-customer-badge-text: #A5B4FC;
-
-  /* Partner Role Tokens (Mint) */
-  --color-partner-primary: #00D991;
-  --color-partner-strong: #10B981;
-  --color-partner-soft: #064E3B;
-  --color-partner-subtle: rgba(0, 217, 145, 0.14);
-  --color-partner-badge-text: #6EE7B7;
-
-  /* Shared/Neutral Tokens */
-  --color-neutral-surface: #151F2E;
-  --color-neutral-elevated: #1E293B;
-  --color-neutral-border: #2A3A50;
-  --color-neutral-text: #CBD5E1;
+  /* Semantic */
+  --color-success: #10B981;
+  --color-success-soft: #D1FAE5;
+  --color-warning: #F59E0B;
+  --color-warning-soft: #FEF3C7;
+  --color-error: #EF4444;
+  --color-error-soft: #FEF2F2;
+  --color-info: #2563EB;
+  --color-info-soft: #DBEAFE;
 
   /* Domain Tokens */
-  --color-reward-primary: #00D991;
-  --color-reward-soft: #064E3B;
-  --color-reward-highlight: #6EE7B7;
+  --color-payment-paid: #10B981;
+  --color-payment-pending: #F59E0B;
+  --color-payment-failed: #EF4444;
 
-  --color-payment-paid: #34D399;
-  --color-payment-pending: #FACC15;
-  --color-payment-failed: #F87171;
+  --color-order-processing: #4F46E5;
+  --color-order-shipped: #2563EB;
+  --color-order-completed: #10B981;
+  --color-order-cancelled: #EF4444;
 
-  --color-order-processing: #818CF8;
-  --color-order-shipped: #60A5FA;
-  --color-order-completed: #34D399;
-  --color-order-cancelled: #F87171;
-
-  --color-commission-pending: #FACC15;
-  --color-commission-confirmed: #00D991;
-  --color-commission-paid: #34D399;
+  --color-commission-pending: #F59E0B;
+  --color-commission-confirmed: #00B879;
+  --color-commission-paid: #10B981;
   --color-commission-cancelled: #94A3B8;
 
-  /* Legacy mappings (for minimal breakage during migration) */
-  --color-dark: #F8FAFC;
-  --color-medium: #CBD5E1;
-  --color-muted-legacy: #94A3B8;
-  --color-border-base: #2A3A50;
+  /* Legacy mappings */
+  --color-primary: #4F46E5;
+  --color-accent: #00B879;
 
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-3xl: 24px;
 
   @keyframes scan {
     0%, 100% { top: 0; }
@@ -116,6 +117,14 @@
   animation: spin-slow 8s linear infinite;
 }
 
+@utility customer-theme-gradient {
+  background: linear-gradient(180deg, rgba(79, 70, 229, 0.05) 0%, rgba(246, 247, 219, 0) 100%);
+}
+
+@utility partner-theme-gradient {
+  background: linear-gradient(180deg, rgba(0, 184, 121, 0.05) 0%, rgba(246, 247, 219, 0) 100%);
+}
+
 @layer base {
   body {
     @apply font-sans antialiased bg-bg-base text-text-primary;
@@ -129,9 +138,9 @@
 }
 
 .glass {
-  @apply bg-surface/80 backdrop-blur-md border border-border-subtle;
+  @apply bg-surface/80 backdrop-blur-md border border-border-subtle shadow-sm;
 }
 
 .card-hover {
-  @apply transition-all duration-300 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1;
+  @apply transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5;
 }

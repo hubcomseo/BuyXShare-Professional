@@ -18,7 +18,7 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ className }) => {
       <button
         onClick={() => setMode('customer')}
         className={cn(
-          "relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-colors z-10",
+          "relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-black uppercase tracking-wider transition-colors z-10 font-heading",
           !isPartner ? "text-white" : "text-text-muted hover:text-text-primary"
         )}
       >
@@ -37,7 +37,7 @@ export const ModeSwitch: React.FC<ModeSwitchProps> = ({ className }) => {
       <button
         onClick={() => setMode('partner')}
         className={cn(
-          "relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-colors z-10",
+          "relative flex items-center gap-2 px-4 py-2 rounded-full text-sm font-black uppercase tracking-wider transition-colors z-10 font-heading",
           isPartner ? "text-bg-base" : "text-text-muted hover:text-text-primary"
         )}
       >

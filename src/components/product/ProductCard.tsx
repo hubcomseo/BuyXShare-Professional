@@ -6,8 +6,8 @@ import { cn } from '../../lib/utils';
 import { ProductImage } from './ProductImage';
 import { ProductPrice } from './ProductPrice';
 import { ProductBadges } from './ProductBadges';
-import { Button } from '../ui/Button';
-import { ShoppingBag } from 'lucide-react';
+import { Badge, Button } from '../ui';
+import { ShoppingBag, Ticket } from 'lucide-react';
 import { useTranslation } from '../../lib/i18n';
 
 interface ProductCardProps {
@@ -26,50 +26,49 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     <Link 
       to={`/app/products/${product.slug}`} 
       className={cn(
-        "group flex flex-col bg-surface rounded-[2rem] overflow-hidden shadow-sm border border-border-subtle hover:border-primary/30 transition-all active:scale-[0.98]",
+        "group flex flex-col bg-surface rounded-2xl overflow-hidden shadow-sm border border-border-subtle transition-all active:scale-[0.98] hover:shadow-md",
         className
       )}
     >
-      <div className="relative aspect-square bg-surface-soft overflow-hidden">
+      <div className="relative aspect-square bg-bg-soft overflow-hidden">
         <ProductImage 
           src={product.images?.[0]} 
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           overlay={
-            <div className="absolute top-3 left-3">
-              <ProductBadges hot={product.price > 1000000} />
-            </div>
+            <>
+              <div className="absolute top-2 left-2 flex flex-col gap-1">
+                <ProductBadges hot={product.price > 1000000} sale={!!product.salePrice} size="xxs" />
+              </div>
+            </>
           }
         />
       </div>
       
-      <div className="p-5 flex-1 flex flex-col">
-        <div className="space-y-1">
-          {product.brand && (
-            <LabelText uppercase className="tracking-widest opacity-60">
-              {product.brand}
-            </LabelText>
-          )}
-          <CardTitle 
-            size="sm"
-            className="line-clamp-1 leading-tight h-5 group-hover:text-primary transition-colors"
-          >
-            {product.name}
-          </CardTitle>
-        </div>
+      {/* Product Info */}
+      <div className="p-3">
+        {/* 1. Brand */}
+        {product.brand && (
+          <Text className="text-[10px] text-text-disabled uppercase font-bold tracking-wider mb-1">
+            {product.brand}
+          </Text>
+        )}
         
-        <div className="mt-auto pt-4 flex items-center justify-between gap-2">
+        {/* 2. Product Name */}
+        <Text 
+          className="text-text-primary text-[14px] leading-tight font-bold line-clamp-2 mb-2 group-hover:text-customer-primary transition-colors font-heading"
+        >
+          {product.name}
+        </Text>
+        
+        {/* 3. Price Area */}
+        <div className="flex items-center flex-wrap gap-x-2 gap-y-1">
           <ProductPrice 
             price={product.price} 
             salePrice={product.salePrice}
-            prominent
+            size="mini"
+            className="!gap-0"
           />
-          
-          {showAction && (
-            <Button size="sm" variant="accent" className="font-semibold flex-shrink-0">
-              {t('buy')}
-            </Button>
-          )}
         </div>
       </div>
     </Link>

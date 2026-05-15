@@ -12,7 +12,6 @@ import { PartnerDashboardView } from '../../features/affiliate/PartnerDashboardV
 import { CommissionHistoryView } from '../../features/affiliate/CommissionHistoryView';
 import { PayoutStatusView } from '../../features/affiliate/PayoutStatusView';
 import { PartnerCampaignsView } from '../../features/partners/PartnerCampaignsView';
-import { PartnerProductsView } from '../../features/partners/PartnerProductsView';
 import { PerformanceAnalyticsView } from '../../features/analytics/PerformanceAnalyticsView';
 import { RewardTrackingView } from '../../features/rewards/RewardTrackingView';
 import { TicketDetailView } from '../../features/rewards/TicketDetailView';
@@ -26,6 +25,8 @@ import { ContactView } from '../../features/support/ContactView';
 import { ShareAppView } from '../../features/support/ShareAppView';
 import { SupplierDashboardView } from '../../features/supplier/SupplierDashboardView';
 import { OperatorDashboardView } from '../../features/operator/OperatorDashboardView';
+
+import { SystemDesignView } from '../../features/debug/SystemDesignView';
 
 import { MobileShell, ProductPageShell, DashboardShell, CheckoutShell } from '../../components/layout';
 import { MyOrdersView } from '../../features/orders/MyOrdersView';
@@ -81,10 +82,12 @@ export const AppRouter = () => {
         <Route path="support/contact" element={<ContactView />} />
         <Route path="support/share" element={<ShareAppView />} />
         
+        <Route path="debug/design" element={<SystemDesignView />} />
+        
         <Route path="partner/dashboard" element={<PartnerDashboardView />} />
         <Route path="partner/marketplace" element={<MarketplaceView />} />
-        <Route path="partner/products" element={<PartnerProductsView />} />
-        <Route path="partner/products/:slug" element={<ProductDetailView />} />
+        <Route path="partner/marketplace/:category" element={<CategoryDetailView />} />
+        <Route path="partner/marketplace/products/:slug" element={<ProductDetailView />} />
         <Route path="partner/commissions" element={<CommissionHistoryView />} />
         <Route path="partner/payouts" element={<PayoutStatusView />} />
         <Route path="partner/campaigns" element={<PartnerCampaignsView />} />

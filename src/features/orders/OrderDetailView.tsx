@@ -40,8 +40,8 @@ export const OrderDetailView = () => {
 
   if (isLoading) {
     return (
-      <PageContainer>
-        <CheckoutHeader title={t('nav_home')} showBack />
+      <PageContainer headerVariant="compact" withHeaderOffset>
+        <CheckoutHeader title={t('nav_home')} showBack onBack={() => navigate(-1)} />
         <div className="p-4 space-y-4">
           <div className="h-32 bg-surface animate-pulse rounded-2xl" />
           <div className="h-64 bg-surface animate-pulse rounded-2xl" />
@@ -52,8 +52,8 @@ export const OrderDetailView = () => {
 
   if (!order) {
     return (
-      <PageContainer>
-        <CheckoutHeader title={t('nav_home')} showBack />
+      <PageContainer headerVariant="compact" withHeaderOffset>
+        <CheckoutHeader title={t('nav_home')} showBack onBack={() => navigate(-1)} />
         <div className="p-8 flex flex-col items-center justify-center text-center mt-20">
           <div className="w-16 h-16 bg-error/10 text-error rounded-full flex items-center justify-center mb-4">
             <AlertCircle size={32} />
@@ -69,8 +69,13 @@ export const OrderDetailView = () => {
   }
 
   return (
-    <PageContainer>
-      <CheckoutHeader title={`${t('orders_title')} #${order.orderCode}`} showBack />
+    <PageContainer
+      variant="mobile"
+      headerVariant="compact"
+      withHeaderOffset
+      className="space-y-0"
+    >
+      <CheckoutHeader title={`${t('orders_title')} #${order.orderCode}`} showBack onBack={() => navigate(-1)} />
 
       <div className="p-4 space-y-6 pb-20">
         <Card className="p-5">

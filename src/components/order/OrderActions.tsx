@@ -23,8 +23,8 @@ export const OrderActions = ({ order, reward, onAction }: OrderActionsProps) => 
   if (order.fulfillmentStatus === 'cancelled') {
     return (
       <div className="flex gap-2">
-        <Button variant="soft-primary" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/p/${order.productId}`))}>Mua lại</Button>
-        <Button variant="ghost" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/orders/${order.id}`))}>Chi tiết</Button>
+        <Button variant="soft-customer" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/p/${order.productId}`))}>Mua lại</Button>
+        <Button variant="outline" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/orders/${order.id}`))}>Chi tiết</Button>
       </div>
     );
   }
@@ -32,8 +32,8 @@ export const OrderActions = ({ order, reward, onAction }: OrderActionsProps) => 
   if (order.paymentStatus === 'pending') {
     return (
       <div className="flex gap-2">
-        <Button variant="accent" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/orders/${order.id}`))}>Thanh toán</Button>
-        <Button variant="ghost" size="sm" className="flex-1 text-error" onClick={(e) => handleAction(e, () => console.log('Hủy'))}>Hủy đơn</Button>
+        <Button variant="buy" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/orders/${order.id}`))}>Thanh toán</Button>
+        <Button variant="danger-soft" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => console.log('Hủy'))}>Hủy đơn</Button>
       </div>
     );
   }
@@ -50,8 +50,8 @@ export const OrderActions = ({ order, reward, onAction }: OrderActionsProps) => 
   if (order.fulfillmentStatus === 'completed') {
      return (
        <div className="flex gap-2">
-         {reward && <Button variant="soft-accent" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/rewards`))}>Vé thưởng</Button>}
-         <Button variant="soft-primary" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/p/${order.productId}`))}>Mua lại</Button>
+         {reward && <Button variant="reward" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/app/rewards`))}>Vé thưởng</Button>}
+         <Button variant="soft-customer" size="sm" className="flex-1" onClick={(e) => handleAction(e, () => navigate(`/p/${order.productId}`))}>Mua lại</Button>
        </div>
      );
   }

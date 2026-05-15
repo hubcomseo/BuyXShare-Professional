@@ -63,19 +63,24 @@ export const MobileTopBar: React.FC<MobileTopBarProps> = ({
   leftSlot,
   rightSlot,
   border = false,
-  background = 'bg-transparent',
+  background = 'bg-white/78 backdrop-blur-[18px]',
 }) => {
   const navigate = useNavigate();
 
   return (
-    <div className={`w-full ${background} ${border ? 'border-b border-border-subtle shadow-sm' : ''} pt-[calc(env(safe-area-inset-top)+16px)] transition-all duration-300`}>
-      <div className="flex items-center justify-between h-[56px] px-4">
-        {/* Left Area - 40px fixed width */}
-        <div className="w-[40px] shrink-0 flex items-center justify-start">
+    <div className={cn(
+      "fixed top-0 left-0 right-0 z-[60] transition-all duration-300",
+      background,
+      border && "border-b border-border-subtle/50"
+    )}>
+      <div className="flex items-center justify-between h-[56px] px-4 pt-[env(safe-area-inset-top)]">
+        {/* Left Area - 44px fixed width for touch target */}
+        <div className="w-[44px] shrink-0 flex items-center justify-start">
           {showBack ? (
             <HeaderActionButton 
-              icon={<ChevronLeft size={22} strokeWidth={2} />} 
+              icon={<ChevronLeft size={24} strokeWidth={2} />} 
               onClick={onBack} 
+              label="Quay lại"
             />
           ) : (
             leftSlot || null
@@ -83,22 +88,34 @@ export const MobileTopBar: React.FC<MobileTopBarProps> = ({
         </div>
 
         {/* Center Area - Flexible */}
-        <div className="flex-1 min-w-0 flex justify-center">
+        <div className="flex-1 min-w-0 flex justify-center px-2">
           <HeaderTitle title={title} />
         </div>
 
-        {/* Right Area - Bell & Profile Icons */}
-        <div className="shrink-0 flex items-center justify-end gap-1">
-          <button className="w-10 h-10 rounded-full flex items-center justify-center bg-transparent border-none text-text-primary hover:bg-surface-elevated transition-colors relative active:scale-95">
-            <Bell size={22} />
-            <span className="absolute top-2 right-2 w-2.5 h-2.5 bg-error rounded-full border-2 border-bg-base shrink-0"></span>
-          </button>
-          <button 
-            onClick={() => navigate('/app/profile')}
-            className="w-10 h-10 rounded-full flex items-center justify-center bg-transparent border-none text-text-primary hover:bg-surface-elevated transition-colors relative active:scale-95"
-          >
-            <User size={22} />
-          </button>
+        {/* Right Area - Action icons */}
+        <div className="shrink-0 flex items-center justify-end min-w-[44px]">
+          {rightSlot || (
+            <div className="flex items-center gap-1">
+              <div className="relative">
+                <IconButton 
+                  icon={<Bell size={20} />} 
+                  variant="ghost"
+                  size="md"
+                  label="Thông báo"
+                  className="w-10 h-10"
+                />
+                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-error rounded-full border-2 border-surface shrink-0"></span>
+              </div>
+              <IconButton 
+                icon={<User size={20} />} 
+                variant="ghost"
+                size="md"
+                label="Cá nhân"
+                onClick={() => navigate('/app/profile')}
+                className="w-10 h-10"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

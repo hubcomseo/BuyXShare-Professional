@@ -8,8 +8,8 @@ export const Skeleton = ({ className }: { className?: string }) => (
 
 export const ProductSkeleton = () => {
   return (
-    <div className="bg-surface rounded-3xl p-4 border border-border-subtle space-y-4">
-      <Skeleton className="aspect-square w-full rounded-2xl" />
+    <div className="bg-surface rounded-xl p-4 border border-border-subtle space-y-4">
+      <Skeleton className="aspect-square w-full rounded-lg" />
       <div className="space-y-2">
         <Skeleton className="h-4 w-3/4" />
         <Skeleton className="h-4 w-1/2" />

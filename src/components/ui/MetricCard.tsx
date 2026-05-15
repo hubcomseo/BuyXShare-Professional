@@ -32,8 +32,8 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   const defaultBg = bg || (isPartner ? 'bg-partner-soft' : 'bg-customer-soft');
 
   return (
-    <Card className={cn("p-5 flex flex-col gap-4 card-hover", className)}>
-      <div className={cn("w-12 h-12 rounded-2xl flex items-center justify-center", defaultBg, defaultColor)}>
+    <Card className={cn("p-5 flex flex-col gap-4 card-hover rounded-xl", className)}>
+      <div className={cn("w-12 h-12 rounded-lg flex items-center justify-center", defaultBg, defaultColor)}>
         <Icon size={24} />
       </div>
       <div>

@@ -48,61 +48,64 @@ export const CategoryMenu: React.FC<CategoryMenuProps> = ({ className }) => {
   }, [products]);
 
   return (
-    <div className={cn("space-y-4", className)}>
-      <div className="flex items-center justify-between px-1">
-        <Text variant="body-lg" weight={600} color="dark">Danh mục sản phẩm</Text>
-        <button 
-          onClick={() => navigate('/app/categories')}
-          className="text-primary text-[13px] font-bold flex items-center gap-0.5 hover:opacity-70 transition-opacity"
-        >
-          Xem tất cả <ChevronRight size={14} />
-        </button>
-      </div>
-
-      <div className="flex gap-4 overflow-x-auto no-scrollbar pb-4 pt-1 mx-[-1.25rem] px-5 snap-x snap-mandatory">
-        {categories.map((cat, i) => (
-          <motion.div
-            key={cat}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: i * 0.05 }}
-            onClick={() => navigate(`/app/categories/${encodeURIComponent(cat)}`)}
-            className="flex flex-col items-center gap-2 group cursor-pointer active:scale-95 transition-all shrink-0 min-w-[72px] snap-start"
-          >
-            <div className="w-14 h-14 rounded-full bg-surface border border-border-subtle flex items-center justify-center shadow-sm group-hover:border-primary/50 group-hover:scale-105 transition-all relative overflow-hidden">
-               <img 
-                src={CATEGORY_IMAGES[cat] || DEFAULT_IMAGE} 
-                alt={cat}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-               />
-               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/0 transition-colors" />
-            </div>
-            <CaptionText 
-              weight={600} 
-              className="text-text-primary text-[11px] text-center line-clamp-1 w-full group-hover:text-primary transition-colors"
+    <div className={className}>
+      <div className="flex gap-2 overflow-x-auto no-scrollbar mx-[-1rem] px-4 snap-x snap-mandatory">
+        {categories.map((cat, i) => {
+          const isActive = location.pathname.includes(encodeURIComponent(cat));
+          return (
+            <motion.div
+              key={cat}
+              initial={{ opacity: 0, x: 10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.03 }}
+              onClick={() => navigate(`/app/categories/${encodeURIComponent(cat)}`)}
+              className={cn(
+                "flex items-center h-[44px] pl-[4px] pr-4 border rounded-full group cursor-pointer active:scale-95 transition-all shrink-0 snap-start shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+                isActive 
+                  ? "bg-primary/10 border-primary/30" 
+                  : "bg-white border-[#E2E8F0] hover:border-primary/30"
+              )}
             >
-              {cat}
-            </CaptionText>
-          </motion.div>
-        ))}
+              <div className="w-[36px] h-[36px] rounded-full overflow-hidden shrink-0 border border-border-subtle/30 shadow-sm">
+                 <img 
+                  src={CATEGORY_IMAGES[cat] || DEFAULT_IMAGE} 
+                  alt={cat}
+                  className="w-full h-full object-cover"
+                 />
+              </div>
+              <span 
+                className={cn(
+                  "text-[13px] font-semibold whitespace-nowrap transition-colors ml-2.5 tracking-tight",
+                  isActive ? "text-primary" : "text-text-primary group-hover:text-primary"
+                )}
+              >
+                {cat}
+              </span>
+            </motion.div>
+          );
+        })}
 
-        {/* View All Button */}
+        {/* View All Chip */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: categories.length * 0.05 }}
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: categories.length * 0.03 }}
           onClick={() => navigate('/app/categories')}
-          className="flex flex-col items-center gap-2 group cursor-pointer active:scale-95 transition-all shrink-0 min-w-[72px] snap-start"
+          className={cn(
+            "flex items-center h-[44px] pl-[4px] pr-4 border rounded-full group cursor-pointer active:scale-95 transition-all shrink-0 snap-start shadow-[0_2px_8px_rgba(0,0,0,0.04)]",
+            location.pathname === '/app/categories'
+              ? "bg-primary/10 border-primary/30"
+              : "bg-primary/5 border-primary/20"
+          )}
         >
-          <div className="w-14 h-14 rounded-full bg-surface-soft border border-border-subtle flex items-center justify-center shadow-sm group-hover:border-primary/50 group-hover:bg-primary/10 transition-all">
-             <LayoutGrid size={24} className="text-primary transition-colors" />
+          <div className="w-[36px] h-[36px] rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+            <LayoutGrid size={16} className="text-primary" />
           </div>
-          <CaptionText 
-            weight={600} 
-            className="text-text-primary text-[11px] text-center line-clamp-1 w-full group-hover:text-primary transition-colors"
+          <span 
+            className="text-primary text-[13px] font-bold whitespace-nowrap ml-2.5 tracking-tight"
           >
             Tất cả
-          </CaptionText>
+          </span>
         </motion.div>
       </div>
     </div>

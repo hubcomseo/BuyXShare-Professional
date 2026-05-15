@@ -174,10 +174,10 @@ export const ProductOrderItem: React.FC<ProductOrderItemProps> = ({
       <div className="flex-1 min-w-0 flex flex-col justify-between py-0.5">
         <div className="space-y-0.5">
           {orderCode && <CaptionText color="primary" weight={600} className="block text-[10px] leading-none mb-1">#{orderCode}</CaptionText>}
-          <Text variant="body-sm" weight={600} className="leading-tight text-text-primary line-clamp-2">
+          <Text className="text-[14px] leading-[17px] font-semibold text-text-primary line-clamp-2">
             {name}
           </Text>
-          {brand && <CaptionText color="muted" className="line-clamp-1">{brand}</CaptionText>}
+          {brand && <Text className="text-[8px] font-medium text-text-disabled uppercase tracking-tight line-clamp-1">{brand}</Text>}
         </div>
         
         <div className="mt-2 pt-2 border-t border-border-subtle">

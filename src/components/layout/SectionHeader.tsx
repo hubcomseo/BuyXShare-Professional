@@ -1,6 +1,6 @@
 import React from 'react';
 import { cn } from '../../lib/utils';
-import { SectionTitle, CaptionText } from '../ui/Typography';
+import { SectionTitle, CaptionText, PromoTitle, Eyebrow } from '../ui/Typography';
 import { ChevronRight } from 'lucide-react';
 import { Button } from '../ui';
 
@@ -21,26 +21,28 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
   className
 }) => {
   return (
-    <div className={cn("flex flex-row items-center justify-between mb-4", className)}>
+    <div className={cn("flex flex-row items-center justify-between py-1", className)}>
       <div className="flex flex-col flex-1 min-w-0">
-        <SectionTitle size="sm" className="truncate leading-tight">
+        <PromoTitle className="truncate leading-none">
           {title}
-        </SectionTitle>
+        </PromoTitle>
         {description && (
-          <CaptionText className="truncate mt-0.5">
+          <Eyebrow className="truncate mt-0.5">
             {description}
-          </CaptionText>
+          </Eyebrow>
         )}
       </div>
       {action && (
         <Button 
           variant="ghost" 
-          size="sm" 
+          size="xs" 
           onClick={action.onClick}
-          rightIcon={<ChevronRight size={16} />}
-          className="text-primary hover:bg-primary/5 pr-1 -mr-2 shrink-0 h-8"
+          rightIcon={<ChevronRight size={14} />}
+          className="text-primary hover:bg-transparent pr-0 -mr-1 shrink-0 h-6"
         >
-          {action.label}
+          <Eyebrow color="primary" weight={700} className="tracking-widest text-[10px]">
+            {action.label}
+          </Eyebrow>
         </Button>
       )}
     </div>
